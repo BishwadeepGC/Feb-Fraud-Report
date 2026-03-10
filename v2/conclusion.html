@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clari5 · Conclusion</title>
+<link rel="stylesheet" href="_shared.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+.ach-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;
+  display:flex;gap:20px;align-items:flex-start;cursor:pointer;transition:all 0.25s;
+}
+.ach-card:hover{border-color:rgba(20,184,166,0.3);background:var(--card2);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.4)}
+.ach-icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;background:rgba(20,184,166,0.1)}
+.ach-title{font-size:16px;font-weight:800;margin-bottom:6px}
+.ach-desc{font-size:13px;color:var(--grey);line-height:1.6}
+.outlook-card{
+  background:linear-gradient(135deg,var(--card),var(--card2));
+  border:1px solid var(--border);border-radius:20px;padding:28px;
+  cursor:pointer;transition:all 0.25s;
+}
+.outlook-card:hover{border-color:var(--border2);transform:translateY(-3px)}
+.o-region{font-size:13px;font-weight:700;margin-bottom:8px}
+.o-current{font-size:32px;font-weight:900;letter-spacing:-1px;line-height:1;margin-bottom:6px}
+.o-target{font-size:13px;color:var(--grey2)}
+</style>
+</head><body>
+<nav>
+  <a class="nav-brand" href="index.html"><div class="nav-dot"></div>Clari5 Intelligence</a>
+  <div class="nav-pages">
+    <a class="nav-page" href="index.html">Home</a><a class="nav-page" href="summary.html">Summary</a>
+    <a class="nav-page" href="maturity.html">Prevention</a><a class="nav-page" href="channels.html">Channels</a>
+    <a class="nav-page" href="detection.html">Detection</a><a class="nav-page" href="scenarios.html">Scenarios</a>
+    <a class="nav-page" href="i4c.html">I4C</a><a class="nav-page active" href="conclusion.html">Conclusion</a>
+  </div>
+  <div class="nav-edition">Edition 4 · Feb 2026</div>
+</nav>
+<div class="page">
+  <div class="page-hero fi" style="background:linear-gradient(135deg,var(--bg2),rgba(20,184,166,0.05))">
+    <div class="ph-num">07 · Conclusion</div>
+    <h1 class="ph-title">Key <span class="hl">Achievements</span></h1>
+    <p class="ph-desc">Edition 4 demonstrates continued strength. January 2026 data reflect a mature, expanding prevention framework with measurable outcomes that protect customers and institutions.</p>
+  </div>
+  <div class="page-inner">
+    <!-- ACHIEVEMENTS -->
+    <div class="slabel fi">January 2026 Achievements</div>
+    <div class="stitle fi" style="margin-bottom:24px">Click each achievement for context</div>
+    <div class="g g2 fi" style="margin-bottom:32px">
+      <div class="ach-card" onclick="openModal('ac1')">
+        <div class="ach-icon">🛡️</div>
+        <div><div class="ach-title">36.3% Prevention Ratio</div><div class="ach-desc">828 active prevention scenarios protecting over 1 billion customers across the ecosystem in real-time.</div></div>
+      </div>
+      <div class="ach-card" onclick="openModal('ac2')">
+        <div class="ach-icon" style="background:rgba(34,197,94,0.1)">💰</div>
+        <div><div class="ach-title">₹15.8 Crore Confirmed Savings</div><div class="ach-desc">Tangible financial impact — Mashreq UAE ₹10.4Cr and Canara ₹5.4Cr. Consistent 3-month upward trend.</div></div>
+      </div>
+      <div class="ach-card" onclick="openModal('ac3')">
+        <div class="ach-icon" style="background:rgba(251,191,36,0.1)">🏆</div>
+        <div><div class="ach-title">5 Leader Banks at &gt;50%</div><div class="ach-desc">KOTAK 81.8% · CIMB EFM 78% · FBN 57% · PNB 55.2% · IOB 50.8% — ecosystem benchmarks set.</div></div>
+      </div>
+      <div class="ach-card" onclick="openModal('ac4')">
+        <div class="ach-icon" style="background:rgba(20,184,166,0.1)">🌏</div>
+        <div><div class="ach-title">SE Asia Excellence — CIMB EFM</div><div class="ach-desc">77.8% prevention ratio with 34 frauds detected. A model for the entire ecosystem.</div></div>
+      </div>
+      <div class="ach-card" onclick="openModal('ac5')">
+        <div class="ach-icon" style="background:rgba(244,63,94,0.1)">📈</div>
+        <div><div class="ach-title">Fraud Detection Surging</div><div class="ach-desc">1,557 detected in January vs 1,155 in December — 35% MoM growth from deeper coverage and better tuning.</div></div>
+      </div>
+      <div class="ach-card" onclick="openModal('ac6')">
+        <div class="ach-icon" style="background:rgba(139,92,246,0.1)">🔮</div>
+        <div><div class="ach-title">Middle East — Strategic Opportunity</div><div class="ach-desc">9.8% prevention ratio across 4 banks. Clear runway to drive prevention maturity significantly higher.</div></div>
+      </div>
+    </div>
+
+    <!-- RADAR / SUMMARY CHART -->
+    <div class="g g2 fi d1">
+      <div class="cc zcard" onclick="openModal('c-radar')">
+        <div class="cc-title">Ecosystem Health Radar</div>
+        <div class="cc-sub">Prevention, detection, coverage scores · Click to zoom</div>
+        <canvas id="radarChart" height="300"></canvas>
+      </div>
+      <div>
+        <div class="slabel">Regional Outlook</div>
+        <div class="stitle" style="margin-bottom:16px">Click for next-edition targets</div>
+        <div class="g g2">
+          <div class="outlook-card" onclick="openModal('or-seasia')">
+            <div class="o-region">🌏 SE Asia</div>
+            <div class="o-current" style="color:var(--green3)">78%</div>
+            <div class="o-target">Target: Sustain &gt;80%</div>
+          </div>
+          <div class="outlook-card" onclick="openModal('or-india')">
+            <div class="o-region">🇮🇳 India</div>
+            <div class="o-current" style="color:var(--blue2)">36.5%</div>
+            <div class="o-target">Target: Reach 45%</div>
+          </div>
+          <div class="outlook-card" onclick="openModal('or-africa')">
+            <div class="o-region">🌍 Africa</div>
+            <div class="o-current" style="color:var(--amber3)">31.6%</div>
+            <div class="o-target">Target: Reach 40%</div>
+          </div>
+          <div class="outlook-card" onclick="openModal('or-me')">
+            <div class="o-region">🌙 Middle East</div>
+            <div class="o-current" style="color:var(--violet3)">9.8%</div>
+            <div class="o-target">Target: Reach 25%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END CTA -->
+    <div class="fi d2" style="text-align:center;padding:48px 0 24px">
+      <div style="font-size:13px;font-family:var(--mono);color:var(--grey2);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px">Explore the full report</div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="summary.html" style="background:var(--card);border:1px solid var(--border);color:var(--white);padding:12px 22px;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--border2)'" onmouseout="this.style.borderColor='var(--border)'">📋 Summary</a>
+        <a href="maturity.html" style="background:var(--card);border:1px solid var(--border);color:var(--white);padding:12px 22px;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--border2)'" onmouseout="this.style.borderColor='var(--border)'">🛡️ Prevention</a>
+        <a href="detection.html" style="background:var(--card);border:1px solid var(--border);color:var(--white);padding:12px 22px;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--border2)'" onmouseout="this.style.borderColor='var(--border)'">🎯 Detection</a>
+        <a href="i4c.html" style="background:var(--card);border:1px solid var(--border);color:var(--white);padding:12px 22px;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--border2)'" onmouseout="this.style.borderColor='var(--border)'">🔗 I4C</a>
+        <a href="index.html" style="background:var(--blue);color:#fff;padding:12px 22px;border-radius:12px;font-size:14px;font-weight:700;text-decoration:none">🏠 Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="ac1"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--teal3)">36.3% Prevention Ratio — What This Means</div><div class="modal-sub">828 of 2,290 scenarios actively block fraud</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">A 36.3% prevention ratio means more than 1 in 3 fraud scenarios deployed across the ecosystem are set to actively block suspicious transactions before they complete — not just flag them for review. This is a significant milestone. Two editions ago (November 2025), prevention scenarios were 676. The sustained growth to 828 shows strategic focus on real-time blocking capabilities across the ecosystem.</p></div></div>
+
+<div class="modal-overlay" id="ac2"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--green3)">₹15.8 Crore — The Real Impact</div><div class="modal-sub">Confirmed fraud prevention savings · 3-month trend</div>
+<div style="display:flex;flex-direction:column;gap:10px;margin:20px 0">
+  <div style="background:var(--card3);border-radius:10px;padding:14px;display:flex;justify-content:space-between"><span>November 2025</span><span style="font-weight:700">₹7.1 Crore total</span></div>
+  <div style="background:var(--card3);border-radius:10px;padding:14px;display:flex;justify-content:space-between"><span>December 2025</span><span style="font-weight:700">₹14.9 Crore total</span></div>
+  <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:14px;display:flex;justify-content:space-between"><span style="font-weight:700">January 2026</span><span style="font-weight:800;color:var(--green3)">₹15.8 Crore total</span></div>
+</div>
+<p style="font-size:14px;color:var(--grey);line-height:1.8">These savings represent real money that fraudsters could not steal from customers. The ₹15.8 Crore figure is expected to grow significantly as more banks begin reporting fraud data (currently only 16 of 25 banks report). When all 25 banks are reporting, the actual ecosystem savings could be 2-3x higher.</p></div></div>
+
+<div class="modal-overlay" id="ac3"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--amber3)">5 Leader Banks — The Benchmark Setters</div><div class="modal-sub">Banks achieving &gt;50% prevention ratio</div>
+<div style="display:flex;flex-direction:column;gap:10px;margin:20px 0">
+  <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:10px;padding:16px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">KOTAK</div><div style="font-size:12px;color:var(--grey2)">305 prevention / 68 monitoring</div></div><span style="font-size:24px;font-weight:900;color:var(--amber3)">81.8%</span></div>
+  <div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.15);border-radius:10px;padding:16px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">CIMB EFM</div><div style="font-size:12px;color:var(--grey2)">28 prevention / 8 monitoring</div></div><span style="font-size:24px;font-weight:900;color:var(--amber3)">78%</span></div>
+  <div style="background:var(--card3);border-radius:10px;padding:16px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">FBN</div><div style="font-size:12px;color:var(--grey2)">33 prevention / 25 monitoring</div></div><span style="font-size:24px;font-weight:900;color:var(--blue2)">57%</span></div>
+  <div style="background:var(--card3);border-radius:10px;padding:16px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">PNB</div><div style="font-size:12px;color:var(--grey2)">159 prevention / 129 monitoring</div></div><span style="font-size:24px;font-weight:900;color:var(--blue2)">55.2%</span></div>
+  <div style="background:var(--card3);border-radius:10px;padding:16px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">IOB</div><div style="font-size:12px;color:var(--grey2)">129 prevention / 125 monitoring</div></div><span style="font-size:24px;font-weight:900;color:var(--blue2)">50.8%</span></div>
+</div></div></div>
+
+<div class="modal-overlay" id="or-me"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--violet3)">Middle East — Path to 25%</div><div class="modal-sub">From 9.8% to 25% prevention ratio</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">The Middle East currently has 6 prevention scenarios out of 61 total. To reach 25%, the region needs approximately 15 prevention scenarios — adding ~9 more. Key opportunity: Mashreq UAE has 14 monitoring scenarios and ₹10.4Cr in savings. Converting even 5 of these to prevention scenarios would dramatically improve the regional ratio and savings. DIB added 3 scenarios in January (+16.7%) showing appetite for growth.</p></div></div>
+
+<div class="modal-overlay" id="or-india"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--blue2)">India — Path to 45%</div><div class="modal-sub">From 36.5% to 45% prevention ratio</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">India needs approximately 185 additional prevention scenarios to cross 45%. Key levers: AXIS (169 scenarios, 0% prevention) and SIB (49 scenarios, 0% prevention) are monitoring-only banks. Converting 20-30% of their monitoring scenarios to prevention would significantly move the needle for the entire India region.</p></div></div>
+
+<div class="modal-overlay" id="c-radar"><div class="modal-box" style="max-width:700px"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title">Ecosystem Health Radar — Zoomed</div><div class="modal-sub">Multi-dimensional performance assessment</div><canvas id="radarZoom" height="380"></canvas></div></div>
+
+<div class="modal-overlay" id="ac4"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--teal3)">CIMB EFM — Southeast Asia Star</div><div class="modal-sub">77.8% prevention ratio · 34 frauds detected</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">CIMB EFM in the Philippines represents the gold standard for the Clari5 ecosystem. With 28 prevention scenarios out of 36 total, it achieves 77.8% — meaning nearly 4 in 5 of its fraud rules actively block rather than monitor. 34 frauds detected in January from a relatively small scenario footprint demonstrates high precision deployment. This bank's configuration should be studied as a template for other regional deployments.</p></div></div>
+
+<div class="modal-overlay" id="ac5"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--rose3)">Fraud Detection Growth — 79% in 3 Months</div><div class="modal-sub">869 → 1,155 → 1,557 confirmed frauds</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">The 79% growth from 869 (November) to 1,557 (January) is driven by three factors: (1) More banks sharing fraud data — 7 banks in November vs 16 in January. (2) Better scenario tuning across existing deployments. (3) New scenarios added specifically targeting high-fraud patterns. This growth is expected to continue as all 25 banks begin reporting fraud outcomes.</p></div></div>
+
+<div class="modal-overlay" id="ac6"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--violet3)">Middle East Opportunity Analysis</div><div class="modal-sub">Biggest growth runway in the ecosystem</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">The Middle East's 9.8% prevention ratio with 4 banks (DIB, RUYA, Mashreq UAE, NBQ) represents the single largest growth opportunity. Interestingly, Mashreq UAE — which has 0% prevention ratio — already saves ₹10.4 Crore monthly via monitoring. Activating prevention mode on even a subset of their 14 monitoring scenarios could multiply this impact significantly.</p></div></div>
+
+<div class="page-footer" style="justify-content:center;gap:20px;flex-direction:column;text-align:center">
+  <div style="font-size:14px;color:var(--grey)">Clari5 State of Fraud Report · Edition 4 · February 2026 · Based on January 2026 Data</div>
+  <div style="font-size:12px;color:var(--grey2)">Confidential · For Internal Executive Use Only · CustomerXPs Software Pvt. Ltd.</div>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+const rCfg={
+  type:'radar',
+  data:{
+    labels:['Prevention Ratio','Alert Coverage','Fraud Detection','Savings Impact','Scenario Depth','Regional Coverage'],
+    datasets:[
+      {label:'January 2026',data:[72,90,62,68,78,65],borderColor:'#14b8a6',backgroundColor:'rgba(20,184,166,0.12)',pointBackgroundColor:'#14b8a6',pointRadius:5,borderWidth:2},
+      {label:'November 2025',data:[54,75,35,42,80,60],borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,0.06)',pointBackgroundColor:'#3b82f6',pointRadius:5,borderWidth:2,borderDash:[4,4]}
+    ]
+  },
+  options:{
+    plugins:{legend:{labels:{font:{size:13}}}},
+    scales:{r:{grid:{color:gc},ticks:{display:false},pointLabels:{font:{size:12,weight:'600'},color:'#94a3b8'},min:0,max:100}}
+  }
+};
+window.addEventListener('load',()=>{
+  new Chart(document.getElementById('radarChart'),JSON.parse(JSON.stringify(rCfg)));
+  let z=false;
+  document.getElementById('c-radar').addEventListener('click',()=>{if(!z){z=true;setTimeout(()=>new Chart(document.getElementById('radarZoom'),JSON.parse(JSON.stringify(rCfg))),100)}});
+});
+</script>
+</body></html>

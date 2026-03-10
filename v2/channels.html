@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clari5 · Channel Coverage</title>
+<link rel="stylesheet" href="_shared.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head><body>
+<nav>
+  <a class="nav-brand" href="index.html"><div class="nav-dot"></div>Clari5 Intelligence</a>
+  <div class="nav-pages">
+    <a class="nav-page" href="index.html">Home</a><a class="nav-page" href="summary.html">Summary</a>
+    <a class="nav-page" href="maturity.html">Prevention</a><a class="nav-page active" href="channels.html">Channels</a>
+    <a class="nav-page" href="detection.html">Detection</a><a class="nav-page" href="scenarios.html">Scenarios</a>
+    <a class="nav-page" href="i4c.html">I4C</a><a class="nav-page" href="conclusion.html">Conclusion</a>
+  </div>
+  <div class="nav-edition">Edition 4 · Feb 2026</div>
+</nav>
+<div class="page">
+  <div class="page-hero fi">
+    <div class="ph-num">03 · Channel Coverage</div>
+    <h1 class="ph-title">Where Fraud <span class="hl">Strikes</span></h1>
+    <p class="ph-desc">CBS/Branch dominates at 45% of all scenarios. Digital channels enable real-time prevention. Multi-channel coverage ensures comprehensive fraud protection across every customer touchpoint.</p>
+    <div class="ph-meta">
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--blue2)">2,193</div><div class="ph-stat-label">Scenarios Classified</div></div>
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--teal3)">5</div><div class="ph-stat-label">Channel Categories</div></div>
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--amber3)">45%</div><div class="ph-stat-label">CBS Dominance</div></div>
+    </div>
+  </div>
+  <div class="page-inner">
+    <div class="g g2 fi" style="margin-bottom:28px">
+      <div class="cc zcard" onclick="openModal('ch-donut')">
+        <div class="cc-title">Scenario Distribution by Channel</div>
+        <div class="cc-sub">January 2026 · Click to zoom</div>
+        <canvas id="channelDonut" height="300"></canvas>
+      </div>
+      <div>
+        <div class="slabel">Channel Detail</div>
+        <div class="stitle">Click any channel for deep dive</div>
+        <div class="prog" style="cursor:pointer" onclick="openModal('ch-cbs')">
+          <div class="prog-row"><span class="prog-name" style="font-weight:700">CBS / Branch</span><span class="prog-val" style="color:var(--blue2)">995 · 45%</span></div>
+          <div class="prog-track"><div class="prog-bar" style="width:45%;background:linear-gradient(90deg,var(--blue),var(--teal2))"></div></div>
+          <div class="prog-sub">Core banking, treasury, branch ops · Tap for detail →</div>
+        </div>
+        <div class="prog" style="cursor:pointer" onclick="openModal('ch-imb')">
+          <div class="prog-row"><span class="prog-name" style="font-weight:700">Internet / Mobile Banking</span><span class="prog-val" style="color:var(--teal3)">491 · 22%</span></div>
+          <div class="prog-track"><div class="prog-bar" style="width:22%;background:var(--teal2)"></div></div>
+          <div class="prog-sub">Digital banking fraud prevention · Tap for detail →</div>
+        </div>
+        <div class="prog" style="cursor:pointer" onclick="openModal('ch-cards')">
+          <div class="prog-row"><span class="prog-name" style="font-weight:700">Cards</span><span class="prog-val" style="color:var(--amber3)">339 · 15%</span></div>
+          <div class="prog-track"><div class="prog-bar" style="width:15%;background:var(--amber2)"></div></div>
+          <div class="prog-sub">Debit/credit, ATM, mPOS, eCommerce · Tap for detail →</div>
+        </div>
+        <div class="prog" style="cursor:pointer" onclick="openModal('ch-cross')">
+          <div class="prog-row"><span class="prog-name" style="font-weight:700">Cross Channel / General</span><span class="prog-val" style="color:var(--violet3)">207 · 9%</span></div>
+          <div class="prog-track"><div class="prog-bar" style="width:9%;background:var(--violet2)"></div></div>
+          <div class="prog-sub">Behavioural & cross-channel patterns · Tap for detail →</div>
+        </div>
+        <div class="prog" style="cursor:pointer" onclick="openModal('ch-upi')">
+          <div class="prog-row"><span class="prog-name" style="font-weight:700">UPI</span><span class="prog-val" style="color:var(--green3)">161 · 7%</span></div>
+          <div class="prog-track"><div class="prog-bar" style="width:7%;background:var(--green2)"></div></div>
+          <div class="prog-sub">UPI, QR codes, BHIM payment rails · Tap for detail →</div>
+        </div>
+      </div>
+    </div>
+    <div class="cc fi d1 zcard" onclick="openModal('ch-bar')">
+      <div class="cc-title">Channel vs Scenario Type</div>
+      <div class="cc-sub">Monitoring vs Prevention split across channels · Click to zoom</div>
+      <canvas id="channelBar" height="220"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="ch-donut"><div class="modal-box" style="max-width:700px">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title">Channel Distribution — Zoomed</div>
+  <div class="modal-sub">Full breakdown of 2,193 scenarios across 5 channels</div>
+  <canvas id="channelDonutZoom" height="350"></canvas>
+</div></div>
+
+<div class="modal-overlay" id="ch-bar"><div class="modal-box" style="max-width:1000px">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title">Channel vs Scenario Type — Zoomed</div>
+  <div class="modal-sub">Monitoring vs Prevention scenarios per channel</div>
+  <canvas id="channelBarZoom" height="300"></canvas>
+</div></div>
+
+<div class="modal-overlay" id="ch-cbs"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--blue2)">📡 CBS / Branch — 995 Scenarios</div>
+  <div class="modal-sub">45% of all deployed scenarios · Largest channel</div>
+  <p style="font-size:15px;color:var(--grey);line-height:1.8">CBS (Core Banking System) and Branch channels cover the backbone of banking operations — NEFT/RTGS transfers, account operations, treasury transactions, and in-branch activities. This channel has the highest scenario count because it handles the largest variety of transaction types. Fraud in CBS channels often involves large-value transfers, suspicious credits, and account manipulation patterns. Deep CBS monitoring is critical for detecting insider threats and structured fraud.</p>
+</div></div>
+
+<div class="modal-overlay" id="ch-imb"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--teal3)">📱 Internet / Mobile Banking — 491 Scenarios</div>
+  <div class="modal-sub">22% of all scenarios · Real-time digital prevention</div>
+  <p style="font-size:15px;color:var(--grey);line-height:1.8">Internet and Mobile Banking is the fastest-growing attack surface. Fraudsters exploit account takeover, device spoofing, beneficiary manipulation, and transaction velocity patterns. Mobile banking scenarios include multi-device login detection, unusual velocity controls, and behavioral biometrics triggers. This channel is where prevention scenarios have the highest ROI — blocking a transaction in-app before it completes is far more effective than post-execution investigation.</p>
+</div></div>
+
+<div class="modal-overlay" id="ch-upi"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--green3)">💸 UPI — 161 Scenarios</div>
+  <div class="modal-sub">7% of scenarios · India-specific high-risk channel</div>
+  <p style="font-size:15px;color:var(--grey);line-height:1.8">UPI is India's dominant payment rail processing billions of transactions monthly. UPI fraud includes screen-share scams, QR code manipulation, collect request fraud, and velocity attacks. The relatively lower scenario count (7%) doesn't reflect risk — UPI transactions per bank can exceed 500M/month. Banks like PNB and Canara have dedicated UPI velocity controls. This channel is expected to grow significantly in future editions.</p>
+</div></div>
+
+<div class="modal-overlay" id="ch-cards"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--amber3)">💳 Cards — 339 Scenarios</div>
+  <div class="modal-sub">15% of scenarios · Debit, Credit, ATM, mPOS, eCommerce</div>
+  <p style="font-size:15px;color:var(--grey);line-height:1.8">Card fraud scenarios cover the full lifecycle — from ATM skimming detection to eCommerce suspicious merchant patterns to international card usage anomalies. The top performing scenario in the ecosystem (DC_SUSP_MERCHANT_ECOM_POS at Canara) is a card channel scenario detecting 169 frauds from 10,645 alerts. Card channels offer high prevention opportunity as transactions can be declined in real-time.</p>
+</div></div>
+
+<div class="modal-overlay" id="ch-cross"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--violet3)">🔄 Cross Channel / General — 207 Scenarios</div>
+  <div class="modal-sub">9% of scenarios · Behavioural & multi-channel patterns</div>
+  <p style="font-size:15px;color:var(--grey);line-height:1.8">Cross-channel scenarios detect fraud patterns that span multiple channels within a single attack flow — for example, a fraudster logging into mobile banking, changing contact details, then immediately initiating a large NEFT transfer. These scenarios are among the most sophisticated, requiring correlation of events across channels. Mule account detection (like MASHREQ UAE's top scenario) also falls into this category.</p>
+</div></div>
+
+<div class="page-footer">
+  <div class="pf-left">Page 3 of 7 · Clari5 State of Fraud Report · February 2026</div>
+  <div class="pf-nav">
+    <a class="pf-btn prev" href="maturity.html">← Prevention</a>
+    <a class="pf-btn next" href="detection.html">Detection Outcomes →</a>
+  </div>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+const dCfg={
+  type:'doughnut',
+  data:{
+    labels:['CBS / Branch','Internet / MB','Cards','Cross Channel','UPI'],
+    datasets:[{data:[995,491,339,207,161],backgroundColor:['#3b82f6','#14b8a6','#f59e0b','#8b5cf6','#22c55e'],borderColor:'#0f1828',borderWidth:4,hoverOffset:12}]
+  },
+  options:{cutout:'68%',plugins:{legend:{position:'bottom',labels:{font:{size:13},padding:20}},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.raw} scenarios (${Math.round(c.raw/2193*100)}%)`}}}}
+};
+const bCfg={
+  type:'bar',
+  data:{
+    labels:['CBS / Branch','Internet / MB','Cards','Cross Channel','UPI'],
+    datasets:[
+      {label:'Monitoring',data:[800,300,200,150,120],backgroundColor:'rgba(59,130,246,0.75)',borderRadius:6},
+      {label:'Prevention',data:[195,191,139,57,41],backgroundColor:'rgba(20,184,166,0.75)',borderRadius:6}
+    ]
+  },
+  options:{plugins:{legend:{labels:{font:{size:13}}}},scales:{x:{grid:{color:gc},stacked:false},y:{grid:{color:gc}}}}
+};
+window.addEventListener('load',()=>{
+  new Chart(document.getElementById('channelDonut'),JSON.parse(JSON.stringify(dCfg)));
+  new Chart(document.getElementById('channelBar'),JSON.parse(JSON.stringify(bCfg)));
+  let zd=false,zb=false;
+  document.getElementById('ch-donut').addEventListener('click',()=>{if(!zd){zd=true;setTimeout(()=>new Chart(document.getElementById('channelDonutZoom'),JSON.parse(JSON.stringify(dCfg))),100)}});
+  document.getElementById('ch-bar').addEventListener('click',()=>{if(!zb){zb=true;setTimeout(()=>new Chart(document.getElementById('channelBarZoom'),JSON.parse(JSON.stringify(bCfg))),100)}});
+});
+</script>
+</body></html>

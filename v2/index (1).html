@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clari5 · Fraud Intelligence Hub</title>
+<link rel="stylesheet" href="_shared.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+.hero-full{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;padding:62px 52px 0;
+  position:relative;overflow:hidden;
+}
+.hf-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -5%,rgba(59,130,246,0.14) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 50% at 10% 80%,rgba(13,148,136,0.08) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 40% at 90% 60%,rgba(124,58,237,0.07) 0%,transparent 60%);
+}
+.hf-grid{
+  position:absolute;inset:0;z-index:0;
+  background-image:linear-gradient(rgba(59,130,246,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025) 1px,transparent 1px);
+  background-size:72px 72px;
+}
+.hf-particles{position:absolute;inset:0;z-index:0;overflow:hidden}
+.particle{
+  position:absolute;width:2px;height:2px;border-radius:50%;
+  background:var(--blue2);opacity:0;
+  animation:float-up var(--dur,8s) var(--delay,0s) infinite ease-in;
+}
+@keyframes float-up{
+  0%{opacity:0;transform:translateY(100vh) translateX(0)}
+  10%{opacity:0.6}
+  90%{opacity:0.2}
+  100%{opacity:0;transform:translateY(-20px) translateX(var(--drift,20px))}
+}
+.hf-inner{position:relative;z-index:1;max-width:1000px}
+.hf-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.22);
+  border-radius:100px;padding:7px 18px;margin-bottom:28px;
+  font-size:11px;font-weight:700;color:var(--blue2);
+  letter-spacing:2px;text-transform:uppercase;
+}
+.live{width:7px;height:7px;border-radius:50%;background:var(--green2);animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.hf-title{
+  font-size:clamp(52px,8vw,96px);font-weight:900;
+  letter-spacing:-3px;line-height:0.93;margin-bottom:24px;
+}
+.hf-title .l1{display:block;color:var(--white)}
+.hf-title .l2{
+  display:block;
+  background:linear-gradient(90deg,var(--blue2) 0%,var(--teal3) 50%,var(--blue2) 100%);
+  background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:sweep 4s linear infinite;
+}
+@keyframes sweep{0%{background-position:0%}100%{background-position:200%}}
+.hf-sub{font-size:18px;font-weight:300;color:var(--grey);line-height:1.7;max-width:620px;margin:0 auto 48px}
+
+/* PAGE CARDS GRID */
+.pages-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border-top:1px solid var(--border);
+  background:rgba(7,11,24,0.85);
+  backdrop-filter:blur(20px);
+  width:100%;
+}
+.pg-card{
+  padding:28px 32px;
+  border-right:1px solid var(--border);
+  text-decoration:none;
+  display:flex;flex-direction:column;gap:8px;
+  transition:background 0.25s;
+  cursor:pointer;
+  position:relative;overflow:hidden;
+}
+.pg-card:last-child{border-right:none}
+.pg-card:hover{background:rgba(59,130,246,0.07)}
+.pg-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  opacity:0;transition:opacity 0.3s;
+}
+.pg-card:hover::before{opacity:1}
+.pg-card.c1::before{background:linear-gradient(90deg,var(--blue),var(--teal2))}
+.pg-card.c2::before{background:linear-gradient(90deg,var(--teal2),var(--green2))}
+.pg-card.c3::before{background:linear-gradient(90deg,var(--amber2),var(--rose2))}
+.pg-card.c4::before{background:linear-gradient(90deg,var(--violet2),var(--blue2))}
+.pg-card.c5::before{background:linear-gradient(90deg,var(--rose2),var(--amber2))}
+.pg-card.c6::before{background:linear-gradient(90deg,var(--green2),var(--teal2))}
+.pg-card.c7::before{background:linear-gradient(90deg,var(--violet3),var(--rose3))}
+.pg-icon{font-size:24px;margin-bottom:4px}
+.pg-num{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--grey2);letter-spacing:2px;text-transform:uppercase}
+.pg-name{font-size:15px;font-weight:700;color:var(--white)}
+.pg-desc{font-size:12px;color:var(--grey2);line-height:1.5}
+.pg-arr{font-size:18px;color:var(--grey3);margin-top:auto;transition:transform 0.2s,color 0.2s}
+.pg-card:hover .pg-arr{transform:translateX(4px);color:var(--blue2)}
+
+/* MINI KPI ROW */
+.kpi-row{
+  display:flex;gap:0;
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  padding:0 52px;
+}
+.kpi-chip{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 24px 14px 0;
+  border-right:1px solid var(--border);
+  margin-right:24px;
+  cursor:pointer;transition:opacity 0.2s;
+  text-decoration:none;
+}
+.kpi-chip:hover{opacity:0.75}
+.kpi-chip:last-child{border-right:none}
+.kc-val{font-family:var(--mono);font-size:18px;font-weight:700;letter-spacing:-0.5px}
+.kc-label{font-size:11px;color:var(--grey2)}
+</style>
+</head><body>
+
+<nav>
+  <a class="nav-brand" href="index.html"><div class="nav-dot"></div>Clari5 Intelligence</a>
+  <div class="nav-pages">
+    <a class="nav-page active" href="index.html">Home</a>
+    <a class="nav-page" href="summary.html">Summary</a>
+    <a class="nav-page" href="maturity.html">Prevention</a>
+    <a class="nav-page" href="channels.html">Channels</a>
+    <a class="nav-page" href="detection.html">Detection</a>
+    <a class="nav-page" href="scenarios.html">Scenarios</a>
+    <a class="nav-page" href="i4c.html">I4C</a>
+    <a class="nav-page" href="conclusion.html">Conclusion</a>
+  </div>
+  <div class="nav-edition">Edition 4 · Feb 2026</div>
+</nav>
+
+<div class="hero-full">
+  <div class="hf-bg"></div>
+  <div class="hf-grid"></div>
+  <div class="hf-particles" id="particles"></div>
+
+  <div class="hf-inner fi">
+    <div class="hf-eyebrow"><div class="live"></div>State of Fraud Report · January 2026 Data · 4th Edition</div>
+    <h1 class="hf-title">
+      <span class="l1">Fraud Prevention</span>
+      <span class="l2">Intelligence</span>
+    </h1>
+    <p class="hf-sub">A consolidated strategic view of fraud readiness, prevention maturity, and detection outcomes across 25 banking institutions spanning 4 regions and 7.3B monthly transactions.</p>
+    <a href="summary.html" style="display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:#fff;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;transition:all 0.2s;margin-bottom:64px" onmouseover="this.style.background='#60a5fa'" onmouseout="this.style.background='var(--blue)'">
+      Enter Report &nbsp;→
+    </a>
+  </div>
+
+  <!-- PAGE NAVIGATION GRID -->
+  <div class="pages-grid">
+    <a href="summary.html" class="pg-card c1">
+      <div class="pg-icon">📋</div>
+      <div class="pg-num">01</div>
+      <div class="pg-name">Executive Summary</div>
+      <div class="pg-desc">KPIs, key findings & edition progress</div>
+      <div class="pg-arr">→</div>
+    </a>
+    <a href="maturity.html" class="pg-card c2">
+      <div class="pg-icon">🛡️</div>
+      <div class="pg-num">02</div>
+      <div class="pg-name">Prevention Maturity</div>
+      <div class="pg-desc">Tiers, regional ratios & benchmarks</div>
+      <div class="pg-arr">→</div>
+    </a>
+    <a href="channels.html" class="pg-card c3">
+      <div class="pg-icon">📡</div>
+      <div class="pg-num">03</div>
+      <div class="pg-name">Channel Coverage</div>
+      <div class="pg-desc">CBS, UPI, Cards, Mobile distribution</div>
+      <div class="pg-arr">→</div>
+    </a>
+    <a href="detection.html" class="pg-card c4">
+      <div class="pg-icon">🎯</div>
+      <div class="pg-num">04</div>
+      <div class="pg-name">Detection Outcomes</div>
+      <div class="pg-desc">Alerts, frauds caught, amount saved</div>
+      <div class="pg-arr">→</div>
+    </a>
+    <a href="scenarios.html" class="pg-card c5">
+      <div class="pg-icon">⚙️</div>
+      <div class="pg-num">05</div>
+      <div class="pg-name">Scenario Analysis</div>
+      <div class="pg-desc">Top rules, growth leaders, deployment</div>
+      <div class="pg-arr">→</div>
+    </a>
+    <a href="i4c.html" class="pg-card c6">
+      <div class="pg-icon">🔗</div>
+      <div class="pg-num">06</div>
+      <div class="pg-name">I4C Intelligence</div>
+      <div class="pg-desc">CCCP module & cybercrime complaints</div>
+      <div class="pg-arr">→</div>
+    </a>
+    <a href="conclusion.html" class="pg-card c7">
+      <div class="pg-icon">🏆</div>
+      <div class="pg-num">07</div>
+      <div class="pg-name">Conclusion</div>
+      <div class="pg-desc">Key achievements & strategic outlook</div>
+      <div class="pg-arr">→</div>
+    </a>
+    <div class="pg-card" style="background:rgba(59,130,246,0.05);cursor:default">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grey2);margin-bottom:12px;letter-spacing:1px">QUICK STATS</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:var(--grey2)">Banks</span><span style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--blue2)" id="qs1">0</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:var(--grey2)">Scenarios</span><span style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--white)" id="qs2">0</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:var(--grey2)">Prev. Ratio</span><span style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--teal3)" id="qs3">0%</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:var(--grey2)">Saved</span><span style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--green3)">₹15.8Cr</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+// Particles
+const pc=document.getElementById('particles');
+for(let i=0;i<30;i++){
+  const p=document.createElement('div');
+  p.className='particle';
+  p.style.cssText=`left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--delay:${Math.random()*8}s;--drift:${(Math.random()-0.5)*80}px`;
+  pc.appendChild(p);
+}
+// counters
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    counter(document.getElementById('qs1'),25);
+    counter(document.getElementById('qs2'),2290);
+    counter(document.getElementById('qs3'),36,'','%');
+  },600);
+  document.querySelectorAll('.fi').forEach(el=>el.classList.add('in'));
+});
+</script>
+</body></html>

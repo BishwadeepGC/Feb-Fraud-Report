@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clari5 · Prevention Maturity</title>
+<link rel="stylesheet" href="_shared.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+.tier{
+  display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:20px;
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 24px;
+  margin-bottom:12px;cursor:pointer;transition:all 0.25s;
+}
+.tier:hover{border-color:var(--border2);background:var(--card2);transform:translateX(6px)}
+.tier-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.tier-n{font-size:40px;font-weight:900;letter-spacing:-1px;flex-shrink:0}
+.tier-name{font-size:16px;font-weight:800;margin-bottom:4px}
+.tier-banks{font-size:12px;color:var(--grey);line-height:1.6}
+.region-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;
+  cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;
+}
+.region-card:hover{transform:translateY(-6px);border-color:var(--border2);box-shadow:0 24px 64px rgba(0,0,0,0.5)}
+.region-emoji{font-size:52px;margin-bottom:20px;display:block}
+.region-ratio{font-size:56px;font-weight:900;letter-spacing:-2px;line-height:1;margin:12px 0 6px}
+.region-bar-wrap{height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;margin-top:16px}
+.region-bar{height:100%;border-radius:4px;transition:width 2s cubic-bezier(0.25,1,0.5,1)}
+</style>
+</head><body>
+<nav>
+  <a class="nav-brand" href="index.html"><div class="nav-dot"></div>Clari5 Intelligence</a>
+  <div class="nav-pages">
+    <a class="nav-page" href="index.html">Home</a>
+    <a class="nav-page" href="summary.html">Summary</a>
+    <a class="nav-page active" href="maturity.html">Prevention</a>
+    <a class="nav-page" href="channels.html">Channels</a>
+    <a class="nav-page" href="detection.html">Detection</a>
+    <a class="nav-page" href="scenarios.html">Scenarios</a>
+    <a class="nav-page" href="i4c.html">I4C</a>
+    <a class="nav-page" href="conclusion.html">Conclusion</a>
+  </div>
+  <div class="nav-edition">Edition 4 · Feb 2026</div>
+</nav>
+
+<div class="page">
+  <div class="page-hero fi">
+    <div class="ph-num">02 · Prevention Maturity</div>
+    <h1 class="ph-title">How <span class="hl">Mature</span> Are We?</h1>
+    <p class="ph-desc">16 of 25 banks actively deploy prevention scenarios. Maturity is classified by prevention ratio — the percentage of scenarios that block fraud versus monitor it.</p>
+    <div class="ph-meta">
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--green3)">5</div><div class="ph-stat-label">Leader Banks &gt;50%</div></div>
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--blue2)">16</div><div class="ph-stat-label">Banks with Prevention</div></div>
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--teal3)">78%</div><div class="ph-stat-label">SE Asia Best Ratio</div></div>
+    </div>
+  </div>
+
+  <div class="page-inner">
+    <div class="g g2 fi" style="margin-bottom:28px">
+      <!-- TIERS -->
+      <div>
+        <div class="slabel">Maturity Tiers</div>
+        <div class="stitle">Prevention Ratio Classification</div>
+        <div class="tier" onclick="openModal('mt-leaders')">
+          <div class="tier-icon" style="background:rgba(251,191,36,0.15)">🏆</div>
+          <div><div class="tier-name" style="color:var(--amber3)">LEADERS <span style="font-size:12px;color:var(--grey2);font-weight:400">&gt;50% prevention</span></div>
+          <div class="tier-banks">KOTAK (81.8%) · CIMB EFM (78%) · FBN (57%) · PNB (55.2%) · IOB (50.8%)</div></div>
+          <div class="tier-n" style="color:var(--amber3)">5</div>
+        </div>
+        <div class="tier" onclick="openModal('mt-estab')">
+          <div class="tier-icon" style="background:rgba(59,130,246,0.15)">🔷</div>
+          <div><div class="tier-name" style="color:var(--blue2)">ESTABLISHED <span style="font-size:12px;color:var(--grey2);font-weight:400">25–50%</span></div>
+          <div class="tier-banks">CANARA (31.4%) · YES (25.3%) · SBM (~22%)</div></div>
+          <div class="tier-n" style="color:var(--blue2)">3</div>
+        </div>
+        <div class="tier" onclick="openModal('mt-dev')">
+          <div class="tier-icon" style="background:rgba(245,158,11,0.12)">📈</div>
+          <div><div class="tier-name" style="color:var(--amber2)">DEVELOPING <span style="font-size:12px;color:var(--grey2);font-weight:400">10–25%</span></div>
+          <div class="tier-banks">DIB (19.1%) · GCB (18.8%) · UJJIVAN (18%) · EQUITAS (16.5%) · RUYA (~13%)</div></div>
+          <div class="tier-n" style="color:var(--amber2)">5</div>
+        </div>
+        <div class="tier" onclick="openModal('mt-basic')">
+          <div class="tier-icon" style="background:rgba(244,63,94,0.12)">🔸</div>
+          <div><div class="tier-name" style="color:var(--rose3)">BASIC <span style="font-size:12px;color:var(--grey2);font-weight:400">1–10%</span></div>
+          <div class="tier-banks">BOI (7%) · WEGAGEN (5.9%) · FEDERAL (3.5%)</div></div>
+          <div class="tier-n" style="color:var(--rose3)">3</div>
+        </div>
+        <div class="tier">
+          <div class="tier-icon" style="background:rgba(100,116,139,0.1)">📊</div>
+          <div><div class="tier-name" style="color:var(--grey)">MONITORING ONLY <span style="font-size:12px;color:var(--grey2);font-weight:400">0% prevention</span></div>
+          <div class="tier-banks">AXIS · SIB · TMB · SURYODAYA · NBQ · VCB · NKGSB · MASHREQ UAE · MASHREQ EGYPT</div></div>
+          <div class="tier-n" style="color:var(--grey)">9</div>
+        </div>
+      </div>
+
+      <!-- CHART -->
+      <div class="cc zcard" onclick="openModal('mt-chart')">
+        <div class="cc-title">Prevention Ratio — Top 8 Banks</div>
+        <div class="cc-sub">Click chart to zoom · % of prevention scenarios</div>
+        <canvas id="prevChart" height="320"></canvas>
+      </div>
+    </div>
+
+    <!-- REGIONAL CARDS -->
+    <div class="slabel fi">Regional Prevention Ratios</div>
+    <div class="stitle fi">Click Any Region to Explore</div>
+    <div class="g g4 fi d1">
+      <div class="region-card" style="border-color:rgba(34,197,94,0.25)" onclick="openModal('mr-seasia')">
+        <span class="region-emoji">🌏</span>
+        <div style="font-size:16px;font-weight:800">Southeast Asia</div>
+        <div class="region-ratio" style="color:var(--green3)">78%</div>
+        <div style="font-size:13px;color:var(--grey)">1 bank · 36 scenarios</div>
+        <div class="region-bar-wrap"><div class="region-bar" style="width:78%;background:var(--green2)"></div></div>
+        <div style="margin-top:12px;font-size:11px;color:var(--green2);font-weight:600">Tap to explore →</div>
+      </div>
+      <div class="region-card" style="border-color:rgba(59,130,246,0.25)" onclick="openModal('mr-india')">
+        <span class="region-emoji">🇮🇳</span>
+        <div style="font-size:16px;font-weight:800">India</div>
+        <div class="region-ratio" style="color:var(--blue2)">36.5%</div>
+        <div style="font-size:13px;color:var(--grey)">15 banks · 2,076 scenarios</div>
+        <div class="region-bar-wrap"><div class="region-bar" style="width:36.5%;background:var(--blue)"></div></div>
+        <div style="margin-top:12px;font-size:11px;color:var(--blue2);font-weight:600">Tap to explore →</div>
+      </div>
+      <div class="region-card" style="border-color:rgba(245,158,11,0.25)" onclick="openModal('mr-africa')">
+        <span class="region-emoji">🌍</span>
+        <div style="font-size:16px;font-weight:800">Africa</div>
+        <div class="region-ratio" style="color:var(--amber3)">31.6%</div>
+        <div style="font-size:13px;color:var(--grey)">5 banks · 117 scenarios</div>
+        <div class="region-bar-wrap"><div class="region-bar" style="width:31.6%;background:var(--amber2)"></div></div>
+        <div style="margin-top:12px;font-size:11px;color:var(--amber3);font-weight:600">Tap to explore →</div>
+      </div>
+      <div class="region-card" style="border-color:rgba(139,92,246,0.25)" onclick="openModal('mr-me')">
+        <span class="region-emoji">🌙</span>
+        <div style="font-size:16px;font-weight:800">Middle East</div>
+        <div class="region-ratio" style="color:var(--violet3)">9.8%</div>
+        <div style="font-size:13px;color:var(--grey)">4 banks · 61 scenarios</div>
+        <div class="region-bar-wrap"><div class="region-bar" style="width:9.8%;background:var(--violet2)"></div></div>
+        <div style="margin-top:12px;font-size:11px;color:var(--violet3);font-weight:600">Strategic opportunity →</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="mt-leaders"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--amber3)">🏆 Leader Banks — &gt;50% Prevention</div>
+  <div class="modal-sub">5 banks setting the benchmark for prevention excellence</div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="background:var(--card3);border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">KOTAK</div><div style="font-size:12px;color:var(--grey2)">India · 373 total scenarios</div></div><div style="text-align:right"><div style="font-size:28px;font-weight:900;color:var(--amber3)">81.8%</div><div style="font-size:12px;color:var(--grey2)">305 prevention / 68 monitoring</div></div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">CIMB EFM</div><div style="font-size:12px;color:var(--grey2)">Southeast Asia · 36 total scenarios</div></div><div style="text-align:right"><div style="font-size:28px;font-weight:900;color:var(--amber3)">78%</div><div style="font-size:12px;color:var(--grey2)">28 prevention / 8 monitoring</div></div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">FBN</div><div style="font-size:12px;color:var(--grey2)">Africa · 58 total scenarios</div></div><div style="text-align:right"><div style="font-size:28px;font-weight:900;color:var(--amber3)">57%</div><div style="font-size:12px;color:var(--grey2)">33 prevention / 25 monitoring</div></div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">PNB</div><div style="font-size:12px;color:var(--grey2)">India · 288 total scenarios</div></div><div style="text-align:right"><div style="font-size:28px;font-weight:900;color:var(--amber3)">55.2%</div><div style="font-size:12px;color:var(--grey2)">159 prevention / 129 monitoring</div></div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">IOB</div><div style="font-size:12px;color:var(--grey2)">India · 254 total scenarios</div></div><div style="text-align:right"><div style="font-size:28px;font-weight:900;color:var(--amber3)">50.8%</div><div style="font-size:12px;color:var(--grey2)">129 prevention / 125 monitoring</div></div></div>
+  </div>
+</div></div>
+
+<div class="modal-overlay" id="mt-chart"><div class="modal-box" style="max-width:1100px">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title">Prevention Ratio — Zoomed View</div>
+  <div class="modal-sub">Top 8 banks ranked by prevention ratio %</div>
+  <canvas id="prevChartZoom" height="300"></canvas>
+</div></div>
+
+<div class="modal-overlay" id="mr-india"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title">🇮🇳 India — Deep Dive</div>
+  <div class="modal-sub">15 banks · 2,076 scenarios · 36.5% prevention ratio</div>
+  <div class="tw"><table>
+    <thead><tr><th>Bank</th><th>Scenarios</th><th>Monitoring</th><th>Prevention</th><th>Ratio</th></tr></thead>
+    <tbody>
+      <tr><td><strong>KOTAK</strong></td><td>373</td><td>68</td><td style="color:var(--green3)">305</td><td><span class="badge b-green">81.8%</span></td></tr>
+      <tr><td><strong>PNB</strong></td><td>288</td><td>129</td><td style="color:var(--teal3)">159</td><td><span class="badge b-teal">55.2%</span></td></tr>
+      <tr><td><strong>IOB</strong></td><td>254</td><td>125</td><td style="color:var(--teal3)">129</td><td><span class="badge b-teal">50.8%</span></td></tr>
+      <tr><td><strong>CANARA</strong></td><td>242</td><td>166</td><td style="color:var(--blue2)">76</td><td><span class="badge b-blue">31.4%</span></td></tr>
+      <tr><td><strong>EQUITAS</strong></td><td>212</td><td>177</td><td style="color:var(--amber3)">35</td><td><span class="badge b-amber">16.5%</span></td></tr>
+      <tr><td><strong>UJJIVAN</strong></td><td>67</td><td>55</td><td style="color:var(--amber3)">12</td><td><span class="badge b-amber">18%</span></td></tr>
+      <tr><td><strong>AXIS</strong></td><td>169</td><td>169</td><td style="color:var(--grey2)">0</td><td><span class="badge b-rose">0%</span></td></tr>
+    </tbody>
+  </table></div>
+</div></div>
+
+<div class="modal-overlay" id="mr-seasia"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--green3)">🌏 Southeast Asia — Star Performer</div>
+  <div class="modal-sub">1 bank · CIMB EFM · 78% prevention ratio</div>
+  <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:16px;padding:28px;margin-bottom:20px">
+    <div style="font-size:64px;font-weight:900;color:var(--green3);letter-spacing:-2px">78%</div>
+    <div style="font-size:16px;font-weight:700;margin-bottom:8px">CIMB EFM — Regional Excellence Benchmark</div>
+    <div style="font-size:14px;color:var(--grey);line-height:1.7">36 total scenarios deployed. 28 are prevention (active blocking), 8 are monitoring. 34 frauds detected in January 2026. Southeast Asia leads all regions in prevention maturity by a significant margin.</div>
+  </div>
+  <p style="font-size:14px;color:var(--grey)">This performance sets the global benchmark within the Clari5 ecosystem. The 78% prevention ratio means nearly 4 out of every 5 fraud scenarios deployed are actively blocking transactions — not just flagging them after the fact.</p>
+</div></div>
+
+<div class="modal-overlay" id="mr-africa"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--amber3)">🌍 Africa — Region Overview</div>
+  <div class="modal-sub">5 banks · 117 scenarios · 31.6% prevention ratio</div>
+  <div class="tw"><table>
+    <thead><tr><th>Bank</th><th>Scenarios</th><th>Prevention</th><th>Ratio</th></tr></thead>
+    <tbody>
+      <tr><td><strong>FBN</strong></td><td>58</td><td style="color:var(--green3)">33</td><td><span class="badge b-green">57%</span></td></tr>
+      <tr><td><strong>WEGAGEN</strong></td><td>19</td><td style="color:var(--rose3)">1</td><td><span class="badge b-rose">5.9%</span></td></tr>
+      <tr><td><strong>GCB</strong></td><td>16</td><td style="color:var(--amber3)">3</td><td><span class="badge b-amber">18.8%</span></td></tr>
+      <tr><td><strong>VCB</strong></td><td>15</td><td style="color:var(--grey2)">0</td><td><span class="badge b-rose">0%</span></td></tr>
+      <tr><td><strong>MASHREQ EGYPT</strong></td><td>9</td><td style="color:var(--grey2)">0</td><td><span class="badge b-rose">0%</span></td></tr>
+    </tbody>
+  </table></div>
+</div></div>
+
+<div class="modal-overlay" id="mr-me"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--violet3)">🌙 Middle East — Strategic Opportunity</div>
+  <div class="modal-sub">4 banks · 61 scenarios · 9.8% prevention ratio — biggest growth runway</div>
+  <div class="tw"><table>
+    <thead><tr><th>Bank</th><th>Scenarios</th><th>Prevention</th><th>Ratio</th></tr></thead>
+    <tbody>
+      <tr><td><strong>DIB</strong></td><td>21</td><td style="color:var(--amber3)">4</td><td><span class="badge b-amber">19.1%</span></td></tr>
+      <tr><td><strong>RUYA</strong></td><td>15</td><td style="color:var(--amber3)">2</td><td><span class="badge b-amber">13.3%</span></td></tr>
+      <tr><td><strong>MASHREQ UAE</strong></td><td>14</td><td style="color:var(--grey2)">0</td><td><span class="badge b-rose">0%</span></td></tr>
+      <tr><td><strong>NBQ</strong></td><td>11</td><td style="color:var(--grey2)">0</td><td><span class="badge b-rose">0%</span></td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:13px;color:var(--grey);margin-top:16px;line-height:1.6">Note: Mashreq UAE has 0 prevention scenarios but leads in amount saved (₹10.4Cr) — demonstrating strong detection capability via monitoring scenarios. Converting these to prevention would significantly increase impact.</p>
+</div></div>
+
+<div class="page-footer">
+  <div class="pf-left">Page 2 of 7 · Clari5 State of Fraud Report · February 2026</div>
+  <div class="pf-nav">
+    <a class="pf-btn prev" href="summary.html">← Summary</a>
+    <a class="pf-btn next" href="channels.html">Channel Coverage →</a>
+  </div>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+window.addEventListener('load',()=>{
+  const cfg={
+    type:'bar',
+    data:{
+      labels:['KOTAK','CIMB EFM','FBN','PNB','IOB','CANARA','YES','EQUITAS'],
+      datasets:[{
+        data:[81.8,78,57,55.2,50.8,31.4,25.3,16.5],
+        backgroundColor(ctx){const v=ctx.raw;return v>=50?'rgba(251,191,36,0.85)':v>=25?'rgba(59,130,246,0.8)':'rgba(245,158,11,0.7)'},
+        borderRadius:8,borderSkipped:false,barThickness:26
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.raw}% prevention ratio`}}},
+      scales:{
+        x:{max:100,grid:{color:gc},ticks:{callback:v=>v+'%',font:{size:12}}},
+        y:{grid:{display:false},ticks:{font:{size:12,weight:'600'}}}
+      }
+    }
+  };
+  new Chart(document.getElementById('prevChart'),JSON.parse(JSON.stringify(cfg)));
+  document.getElementById('mt-chart').addEventListener('click',()=>{
+    setTimeout(()=>{ if(!window._zc){ window._zc=new Chart(document.getElementById('prevChartZoom'),JSON.parse(JSON.stringify(cfg))); } },100);
+  });
+});
+</script>
+</body></html>

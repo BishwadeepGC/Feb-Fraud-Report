@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clari5 · Detection Outcomes</title>
+<link rel="stylesheet" href="_shared.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+.det-hero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:28px}
+.det-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;position:relative;overflow:hidden;cursor:pointer;transition:all 0.3s}
+.det-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,0.5)}
+.det-card .stripe{position:absolute;top:0;left:0;right:0;height:4px;border-radius:20px 20px 0 0}
+.det-val{font-size:52px;font-weight:900;letter-spacing:-2px;line-height:1;margin:14px 0 10px}
+.det-label{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--grey2);letter-spacing:2px;text-transform:uppercase}
+.det-desc{font-size:13px;color:var(--grey);line-height:1.6;margin-top:6px}
+.det-action{font-size:11px;font-weight:700;margin-top:16px}
+.bank-row{
+  display:grid;grid-template-columns:36px 1fr 100px 110px 130px;
+  align-items:center;gap:16px;
+  background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;
+  margin-bottom:10px;cursor:pointer;transition:all 0.2s;
+}
+.bank-row:hover{border-color:var(--border2);background:var(--card2);transform:translateX(4px)}
+</style>
+</head><body>
+<nav>
+  <a class="nav-brand" href="index.html"><div class="nav-dot"></div>Clari5 Intelligence</a>
+  <div class="nav-pages">
+    <a class="nav-page" href="index.html">Home</a><a class="nav-page" href="summary.html">Summary</a>
+    <a class="nav-page" href="maturity.html">Prevention</a><a class="nav-page" href="channels.html">Channels</a>
+    <a class="nav-page active" href="detection.html">Detection</a><a class="nav-page" href="scenarios.html">Scenarios</a>
+    <a class="nav-page" href="i4c.html">I4C</a><a class="nav-page" href="conclusion.html">Conclusion</a>
+  </div>
+  <div class="nav-edition">Edition 4 · Feb 2026</div>
+</nav>
+<div class="page">
+  <div class="page-hero fi">
+    <div class="ph-num">04 · Detection Outcomes</div>
+    <h1 class="ph-title">Measurable <span class="hl">Impact</span></h1>
+    <p class="ph-desc">3.54 million fraud signals processed across 25 banks. ₹15.8 Crore in confirmed savings. Detection volume growing 79% over 3 months.</p>
+    <div class="ph-meta">
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--amber3)">3.54M</div><div class="ph-stat-label">Alerts Processed</div></div>
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--rose3)">1,557</div><div class="ph-stat-label">Frauds Detected</div></div>
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--green3)">₹15.8Cr</div><div class="ph-stat-label">Confirmed Savings</div></div>
+    </div>
+  </div>
+  <div class="page-inner">
+    <!-- 3 BIG METRIC CARDS -->
+    <div class="det-hero-grid fi">
+      <div class="det-card" onclick="openModal('d-alerts')" style="border-color:rgba(245,158,11,0.3)">
+        <div class="stripe" style="background:linear-gradient(90deg,var(--amber2),var(--rose2))"></div>
+        <div class="det-label">Total Alerts</div>
+        <div class="det-val" style="color:var(--amber3)" id="d1">0</div>
+        <div class="det-desc">Fraud signals processed across all 25 banks in January 2026</div>
+        <div class="det-action" style="color:var(--amber2)">Click to view region breakdown →</div>
+      </div>
+      <div class="det-card" onclick="openModal('d-frauds')" style="border-color:rgba(244,63,94,0.3)">
+        <div class="stripe" style="background:linear-gradient(90deg,var(--rose2),var(--violet2))"></div>
+        <div class="det-label">Confirmed Frauds</div>
+        <div class="det-val" style="color:var(--rose3)" id="d2">0</div>
+        <div class="det-desc">Confirmed fraud cases tagged in January — up 35% vs November</div>
+        <div class="det-action" style="color:var(--rose2)">Click to view bank breakdown →</div>
+      </div>
+      <div class="det-card" onclick="openModal('d-saved')" style="border-color:rgba(34,197,94,0.3)">
+        <div class="stripe" style="background:linear-gradient(90deg,var(--green2),var(--teal2))"></div>
+        <div class="det-label">Amount Saved</div>
+        <div class="det-val" style="color:var(--green3)">₹15.8Cr</div>
+        <div class="det-desc">Mashreq UAE ₹10.4Cr + Canara ₹5.4Cr confirmed prevention</div>
+        <div class="det-action" style="color:var(--green2)">Click to view trend →</div>
+      </div>
+    </div>
+
+    <!-- TOP BANKS TABLE -->
+    <div class="fi d1" style="margin-bottom:28px">
+      <div class="slabel">Top Performing Banks</div>
+      <div class="stitle">Click any bank to zoom in</div>
+      <div style="display:grid;grid-template-columns:36px 1fr 100px 110px 130px;gap:16px;padding:0 20px 10px;border-bottom:1px solid var(--border)">
+        <span style="font-size:11px;color:var(--grey2);font-weight:700;letter-spacing:1px">#</span>
+        <span style="font-size:11px;color:var(--grey2);font-weight:700;letter-spacing:1px;text-transform:uppercase">Bank</span>
+        <span style="font-size:11px;color:var(--grey2);font-weight:700;letter-spacing:1px;text-align:right;text-transform:uppercase">Alerts</span>
+        <span style="font-size:11px;color:var(--grey2);font-weight:700;letter-spacing:1px;text-align:right;text-transform:uppercase">Frauds</span>
+        <span style="font-size:11px;color:var(--grey2);font-weight:700;letter-spacing:1px;text-align:right;text-transform:uppercase">Amount Saved</span>
+      </div>
+      <div class="bank-row" onclick="openModal('db-mashreq')">
+        <span class="rank" style="background:rgba(251,191,36,0.2);color:var(--amber3)">1</span>
+        <div><div style="font-weight:700">MASHREQ UAE</div><div style="font-size:12px;color:var(--grey2)">Middle East · EFM</div></div>
+        <div style="font-family:var(--mono);font-size:13px;text-align:right">52,877</div>
+        <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--rose3);text-align:right">132</div>
+        <div style="font-size:14px;font-weight:700;color:var(--green3);text-align:right">₹10.4 Crore</div>
+      </div>
+      <div class="bank-row" onclick="openModal('db-canara')">
+        <span class="rank" style="background:rgba(148,163,184,0.15);color:var(--grey)">2</span>
+        <div><div style="font-weight:700">CANARA</div><div style="font-size:12px;color:var(--grey2)">India · EFM</div></div>
+        <div style="font-family:var(--mono);font-size:13px;text-align:right">11,19,398</div>
+        <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--rose3);text-align:right">875*</div>
+        <div style="font-size:14px;font-weight:700;color:var(--green3);text-align:right">₹5.4 Crore</div>
+      </div>
+      <div class="bank-row" onclick="openModal('db-ujjivan')">
+        <span class="rank" style="background:rgba(245,158,11,0.12);color:var(--amber)">3</span>
+        <div><div style="font-weight:700">UJJIVAN</div><div style="font-size:12px;color:var(--grey2)">India · EFM</div></div>
+        <div style="font-family:var(--mono);font-size:13px;text-align:right">1,02,397</div>
+        <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--rose3);text-align:right">288</div>
+        <div style="font-size:14px;color:var(--grey2);text-align:right">—</div>
+      </div>
+      <div class="bank-row">
+        <span class="rank" style="background:rgba(26,40,64,0.8);color:var(--grey)">4</span>
+        <div><div style="font-weight:700">KOTAK</div><div style="font-size:12px;color:var(--grey2)">India · EFM</div></div>
+        <div style="font-family:var(--mono);font-size:13px;text-align:right">3,86,721</div>
+        <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--rose3);text-align:right">107</div>
+        <div style="font-size:14px;color:var(--grey2);text-align:right">—</div>
+      </div>
+      <div class="bank-row">
+        <span class="rank" style="background:rgba(26,40,64,0.8);color:var(--grey)">5</span>
+        <div><div style="font-weight:700">BOI</div><div style="font-size:12px;color:var(--grey2)">India · EFM</div></div>
+        <div style="font-family:var(--mono);font-size:13px;text-align:right">2,06,289</div>
+        <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--rose3);text-align:right">106</div>
+        <div style="font-size:14px;color:var(--grey2);text-align:right">—</div>
+      </div>
+      <div style="font-size:12px;color:var(--grey2);padding:8px 20px">* Includes suspicious and confirmed frauds</div>
+    </div>
+
+    <!-- REGION CHART -->
+    <div class="cc fi d2 zcard" onclick="openModal('d-region')">
+      <div class="cc-title">Region-wise Alert & Fraud Distribution</div>
+      <div class="cc-sub">January 2026 · Click to zoom</div>
+      <canvas id="regionChart" height="220"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="d-alerts"><div class="modal-box" style="max-width:800px">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--amber3)">3.54M Alerts — Regional Breakdown</div>
+  <div class="modal-sub">Total alert volume by region · January 2026</div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="background:var(--card3);border-radius:12px;padding:18px;display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center">
+      <div><div style="font-weight:700">🇮🇳 India</div><div style="font-size:12px;color:var(--grey2)">15 banks · dominant volume</div></div>
+      <div style="font-family:var(--mono);font-size:20px;font-weight:800;color:var(--blue2)">33,39,659</div>
+      <span class="badge b-blue">94.2%</span>
+    </div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center">
+      <div><div style="font-weight:700">🌍 Africa</div><div style="font-size:12px;color:var(--grey2)">5 banks</div></div>
+      <div style="font-family:var(--mono);font-size:20px;font-weight:800;color:var(--amber3)">1,14,892</div>
+      <span class="badge b-amber">3.2%</span>
+    </div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center">
+      <div><div style="font-weight:700">🌙 Middle East</div><div style="font-size:12px;color:var(--grey2)">4 banks</div></div>
+      <div style="font-family:var(--mono);font-size:20px;font-weight:800;color:var(--violet3)">67,773</div>
+      <span class="badge b-violet">1.9%</span>
+    </div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center">
+      <div><div style="font-weight:700">🌏 SE Asia</div><div style="font-size:12px;color:var(--grey2)">1 bank</div></div>
+      <div style="font-family:var(--mono);font-size:20px;font-weight:800;color:var(--teal3)">22,170</div>
+      <span class="badge b-teal">0.6%</span>
+    </div>
+  </div>
+</div></div>
+
+<div class="modal-overlay" id="d-saved"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--green3)">₹15.8 Crore Saved — Trend Analysis</div>
+  <div class="modal-sub">Consistent growth over 3 editions</div>
+  <canvas id="trendModal" height="260"></canvas>
+</div></div>
+
+<div class="modal-overlay" id="d-region"><div class="modal-box" style="max-width:1000px">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title">Region-wise Distribution — Zoomed</div>
+  <div class="modal-sub">Alerts and Frauds by region</div>
+  <canvas id="regionZoom" height="300"></canvas>
+</div></div>
+
+<div class="modal-overlay" id="db-mashreq"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--blue2)">Mashreq UAE — Deep Dive</div>
+  <div class="modal-sub">Middle East · Top bank by amount saved</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px">
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--amber3)">52,877</div><div style="font-size:11px;color:var(--grey2)">Total Alerts</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--rose3)">132</div><div style="font-size:11px;color:var(--grey2)">Frauds Detected</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--green3)">₹10.4Cr</div><div style="font-size:11px;color:var(--grey2)">Amount Saved</div></div>
+  </div>
+  <p style="font-size:14px;color:var(--grey);line-height:1.7">Mashreq UAE leads in amount saved despite having 0% prevention scenarios — all savings come from monitoring scenarios that enable rapid manual intervention. The S002B_MULE_ACCOUNT_FRAUD_INTU scenario alone generated 14,825 alerts and detected 48 frauds. Savings grew from ₹3.4Cr (Nov) → ₹9.7Cr (Dec) → ₹10.4Cr (Jan) — a 3x growth in 3 months.</p>
+</div></div>
+
+<div class="modal-overlay" id="db-canara"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--amber3)">Canara Bank — Deep Dive</div>
+  <div class="modal-sub">India · Highest alert volume in ecosystem</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px">
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--amber3)">11.19L</div><div style="font-size:11px;color:var(--grey2)">Total Alerts</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--rose3)">875*</div><div style="font-size:11px;color:var(--grey2)">Frauds Detected</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--green3)">₹5.4Cr</div><div style="font-size:11px;color:var(--grey2)">Amount Saved</div></div>
+  </div>
+  <p style="font-size:14px;color:var(--grey);line-height:1.7">Canara processes the highest alert volume in the entire ecosystem — over 1.1 million alerts monthly. This reflects both the bank's scale (large customer base) and comprehensive scenario coverage (242 scenarios). Top fraud-detecting scenarios include DC_SUSP_MERCHANT_ECOM_POS (169 frauds), MB_47_MUL_MOB_DEV_LOGIN (129 frauds), and CC_DC_SPECIFIC_MCC_CODE (70 frauds).</p>
+</div></div>
+
+<div class="modal-overlay" id="db-ujjivan"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--teal3)">Ujjivan — Deep Dive</div>
+  <div class="modal-sub">India · 3rd highest frauds detected</div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:20px">
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--teal3)">1,02,397</div><div style="font-size:11px;color:var(--grey2)">Total Alerts</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--rose3)">288</div><div style="font-size:11px;color:var(--grey2)">Frauds Detected</div></div>
+  </div>
+  <p style="font-size:14px;color:var(--grey);line-height:1.7">Ujjivan's top scenario (IBMB_25_BEN_ADDITOAN_BY_CUSTOMER_INTU) is the 2nd most productive in the ecosystem — detecting 145 frauds from 2,054 alerts. The bank has 67 scenarios with 18% prevention ratio. Strong performance for a smaller bank with focused scenario deployment.</p>
+</div></div>
+
+<div class="modal-overlay" id="d-frauds"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--rose3)">1,557 Frauds — Growth Story</div>
+  <div class="modal-sub">Month-on-month detection improvement</div>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px">
+    <div style="background:var(--card3);border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600">November 2025</span><span style="font-family:var(--mono);font-size:22px;font-weight:900;color:var(--grey)">869</span></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600">December 2025</span><span style="font-family:var(--mono);font-size:22px;font-weight:900;color:var(--amber3)">1,155 <span style="font-size:14px">↑33%</span></span></div>
+    <div style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center"><span style="font-weight:700">January 2026</span><span style="font-family:var(--mono);font-size:22px;font-weight:900;color:var(--rose3)">1,557 <span style="font-size:14px">↑35%</span></span></div>
+  </div>
+  <p style="font-size:14px;color:var(--grey);line-height:1.7">The 79% growth in fraud detection over 3 months is driven by: more banks sharing fraud data (7 → 13 → 16 banks), improved scenario tuning, and expanded coverage. India accounts for 1,314 of the 1,480 confirmed frauds, while the Middle East detected 132 (all Mashreq UAE).</p>
+</div></div>
+
+<div class="page-footer">
+  <div class="pf-left">Page 4 of 7 · Clari5 State of Fraud Report · February 2026</div>
+  <div class="pf-nav">
+    <a class="pf-btn prev" href="channels.html">← Channels</a>
+    <a class="pf-btn next" href="scenarios.html">Scenario Analysis →</a>
+  </div>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+const rCfg={
+  type:'bar',
+  data:{
+    labels:['India','Africa','Middle East','SE Asia'],
+    datasets:[
+      {label:'Total Alerts',data:[3339659,114892,67773,22170],backgroundColor:'rgba(59,130,246,0.75)',borderRadius:6,yAxisID:'y1'},
+      {label:'Frauds',data:[1314,0,132,34],backgroundColor:'rgba(244,63,94,0.8)',borderRadius:6,yAxisID:'y2'}
+    ]
+  },
+  options:{
+    plugins:{legend:{labels:{font:{size:13}}}},
+    scales:{
+      y1:{grid:{color:gc},ticks:{callback:v=>v>=1000000?+(v/1000000).toFixed(1)+'M':v>=1000?+(v/1000).toFixed(0)+'K':v,font:{size:11}}},
+      y2:{position:'right',grid:{display:false},ticks:{color:'#fb7185',font:{size:11}}}
+    }
+  }
+};
+const tCfg={
+  type:'line',
+  data:{
+    labels:['Nov 2025','Dec 2025','Jan 2026'],
+    datasets:[
+      {label:'Mashreq UAE',data:[3.4,9.7,10.4],borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,0.08)',fill:true,tension:0.4,pointRadius:8,pointBackgroundColor:'#3b82f6',pointBorderColor:'#0f1828',pointBorderWidth:3},
+      {label:'Canara',data:[3.7,5.2,5.4],borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,0.06)',fill:true,tension:0.4,pointRadius:8,pointBackgroundColor:'#f59e0b',pointBorderColor:'#0f1828',pointBorderWidth:3}
+    ]
+  },
+  options:{
+    plugins:{legend:{labels:{font:{size:13}}}},
+    scales:{y:{grid:{color:gc},ticks:{callback:v=>'₹'+v+'Cr'}},x:{grid:{color:gc}}}
+  }
+};
+window.addEventListener('load',()=>{
+  counter(document.getElementById('d1'),3544494);
+  counter(document.getElementById('d2'),1557);
+  new Chart(document.getElementById('regionChart'),JSON.parse(JSON.stringify(rCfg)));
+  let tm=false,rz=false;
+  document.getElementById('d-saved').addEventListener('click',()=>{if(!tm){tm=true;setTimeout(()=>new Chart(document.getElementById('trendModal'),JSON.parse(JSON.stringify(tCfg))),100)}});
+  document.getElementById('d-region').addEventListener('click',()=>{if(!rz){rz=true;setTimeout(()=>new Chart(document.getElementById('regionZoom'),JSON.parse(JSON.stringify(rCfg))),100)}});
+});
+</script>
+</body></html>

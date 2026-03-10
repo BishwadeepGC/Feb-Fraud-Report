@@ -1,0 +1,236 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clari5 · Scenario Analysis</title>
+<link rel="stylesheet" href="_shared.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+.scn-row{
+  display:grid;grid-template-columns:38px 1fr 140px 110px 90px 80px;
+  align-items:center;gap:14px;
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:16px 20px;margin-bottom:10px;cursor:pointer;transition:all 0.22s;
+}
+.scn-row:hover{border-color:var(--border2);background:var(--card2);transform:translateX(5px)}
+.scn-name{font-family:var(--mono);font-size:11.5px;color:var(--grey);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.scn-meta{font-size:12px;color:var(--grey2)}
+</style>
+</head><body>
+<nav>
+  <a class="nav-brand" href="index.html"><div class="nav-dot"></div>Clari5 Intelligence</a>
+  <div class="nav-pages">
+    <a class="nav-page" href="index.html">Home</a><a class="nav-page" href="summary.html">Summary</a>
+    <a class="nav-page" href="maturity.html">Prevention</a><a class="nav-page" href="channels.html">Channels</a>
+    <a class="nav-page" href="detection.html">Detection</a><a class="nav-page active" href="scenarios.html">Scenarios</a>
+    <a class="nav-page" href="i4c.html">I4C</a><a class="nav-page" href="conclusion.html">Conclusion</a>
+  </div>
+  <div class="nav-edition">Edition 4 · Feb 2026</div>
+</nav>
+<div class="page">
+  <div class="page-hero fi">
+    <div class="ph-num">05 · Scenario Analysis</div>
+    <h1 class="ph-title">Rules That <span class="hl">Work</span></h1>
+    <p class="ph-desc">2,290 scenarios deployed. Top rules analyzed by alert volume and confirmed fraud detection. Growth leaders identified for strategic expansion.</p>
+    <div class="ph-meta">
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--blue2)">2,290</div><div class="ph-stat-label">Total Scenarios</div></div>
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--teal3)">828</div><div class="ph-stat-label">Prevention Rules</div></div>
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--amber3)">1,462</div><div class="ph-stat-label">Monitoring Rules</div></div>
+    </div>
+  </div>
+  <div class="page-inner">
+    <div class="g g2 fi" style="margin-bottom:28px">
+      <div class="cc zcard" onclick="openModal('sc-chart')">
+        <div class="cc-title">Top 5 Banks — Scenario Depth</div>
+        <div class="cc-sub">Monitoring vs Prevention split · Click to zoom</div>
+        <canvas id="scnBar" height="280"></canvas>
+      </div>
+      <div>
+        <div class="slabel">Scenario Growth Leaders</div>
+        <div class="stitle">Dec 2025 → Jan 2026</div>
+        <div class="prog" style="cursor:pointer" onclick="openModal('sg-dib')">
+          <div class="prog-row"><span class="prog-name" style="font-weight:700">DIB <span style="font-size:12px;color:var(--grey2);font-weight:400">Middle East</span></span><span class="prog-val" style="color:var(--green3)">+16.7%</span></div>
+          <div class="prog-track"><div class="prog-bar" style="width:84%;background:linear-gradient(90deg,var(--teal2),var(--green2))"></div></div>
+          <div class="prog-sub">18 → 21 scenarios · Tap for detail →</div>
+        </div>
+        <div class="prog" style="cursor:pointer" onclick="openModal('sg-iob')">
+          <div class="prog-row"><span class="prog-name" style="font-weight:700">IOB <span style="font-size:12px;color:var(--grey2);font-weight:400">India</span></span><span class="prog-val" style="color:var(--green3)">+15.5%</span></div>
+          <div class="prog-track"><div class="prog-bar" style="width:77%;background:linear-gradient(90deg,var(--teal2),var(--green2))"></div></div>
+          <div class="prog-sub">220 → 254 scenarios · Tap for detail →</div>
+        </div>
+        <div class="prog" style="cursor:pointer">
+          <div class="prog-row"><span class="prog-name" style="font-weight:700">WEGAGEN <span style="font-size:12px;color:var(--grey2);font-weight:400">Africa</span></span><span class="prog-val" style="color:var(--green3)">+11.8%</span></div>
+          <div class="prog-track"><div class="prog-bar" style="width:59%;background:linear-gradient(90deg,var(--teal2),var(--green2))"></div></div>
+          <div class="prog-sub">17 → 19 scenarios</div>
+        </div>
+        <hr>
+        <div class="slabel" style="margin-bottom:12px">Prevention Growth</div>
+        <div class="prog"><div class="prog-row"><span class="prog-name">IOB</span><span class="prog-val" style="color:var(--blue2)">121 → 129 (+6.6%)</span></div><div class="prog-track"><div class="prog-bar" style="width:66%;background:var(--blue)"></div></div></div>
+        <div class="prog"><div class="prog-row"><span class="prog-name">FBN</span><span class="prog-val" style="color:var(--blue2)">32 → 33 (+3%)</span></div><div class="prog-track"><div class="prog-bar" style="width:30%;background:var(--blue)"></div></div></div>
+        <div class="prog"><div class="prog-row"><span class="prog-name">PNB</span><span class="prog-val" style="color:var(--blue2)">156 → 159 (+2%)</span></div><div class="prog-track"><div class="prog-bar" style="width:20%;background:var(--blue)"></div></div></div>
+      </div>
+    </div>
+
+    <!-- TOP SCENARIOS LIST -->
+    <div class="fi d1">
+      <div class="slabel">Top Performing Scenarios</div>
+      <div class="stitle" style="margin-bottom:16px">Click any scenario to explore</div>
+      <div style="display:grid;grid-template-columns:38px 1fr 140px 110px 90px 80px;gap:14px;padding:0 20px 10px;border-bottom:1px solid var(--border)">
+        <span style="font-size:10px;color:var(--grey2);font-weight:700">#</span>
+        <span style="font-size:10px;color:var(--grey2);font-weight:700;text-transform:uppercase;letter-spacing:1px">Scenario</span>
+        <span style="font-size:10px;color:var(--grey2);font-weight:700;text-transform:uppercase;letter-spacing:1px">Bank · Channel</span>
+        <span style="font-size:10px;color:var(--grey2);font-weight:700;text-transform:uppercase;letter-spacing:1px">Type</span>
+        <span style="font-size:10px;color:var(--grey2);font-weight:700;text-transform:uppercase;letter-spacing:1px;text-align:right">Alerts</span>
+        <span style="font-size:10px;color:var(--grey2);font-weight:700;text-transform:uppercase;letter-spacing:1px;text-align:right">Frauds</span>
+      </div>
+      <div class="scn-row" onclick="openModal('ss1')">
+        <span class="rank" style="background:rgba(251,191,36,0.2);color:var(--amber3)">1</span>
+        <div><div class="scn-name">DC_SUSP_MERCHANT_ECOM_POS</div></div>
+        <div><div style="font-size:13px;font-weight:600">Canara</div><div class="scn-meta">DC Channel</div></div>
+        <span><span class="badge b-teal">Prevention</span></span>
+        <span style="font-family:var(--mono);font-size:13px;font-weight:600;text-align:right">10,645</span>
+        <span style="font-family:var(--mono);font-size:14px;font-weight:800;color:var(--rose3);text-align:right">169</span>
+      </div>
+      <div class="scn-row" onclick="openModal('ss2')">
+        <span class="rank" style="background:rgba(148,163,184,0.15);color:var(--grey)">2</span>
+        <div><div class="scn-name">IBMB_25_BEN_ADDITOAN_BY_CUSTOMER_INTU</div></div>
+        <div><div style="font-size:13px;font-weight:600">Ujjivan</div><div class="scn-meta">IB/MB Channel</div></div>
+        <span><span class="badge b-blue">Monitoring</span></span>
+        <span style="font-family:var(--mono);font-size:13px;font-weight:600;text-align:right">2,054</span>
+        <span style="font-family:var(--mono);font-size:14px;font-weight:800;color:var(--rose3);text-align:right">145</span>
+      </div>
+      <div class="scn-row" onclick="openModal('ss3')">
+        <span class="rank" style="background:rgba(245,158,11,0.12);color:var(--amber)">3</span>
+        <div><div class="scn-name">MB_47_MUL_MOB_DEV_LOGIN</div></div>
+        <div><div style="font-size:13px;font-weight:600">Canara</div><div class="scn-meta">MB Channel</div></div>
+        <span><span class="badge b-blue">Monitoring</span></span>
+        <span style="font-family:var(--mono);font-size:13px;font-weight:600;text-align:right">5,046</span>
+        <span style="font-family:var(--mono);font-size:14px;font-weight:800;color:var(--rose3);text-align:right">129</span>
+      </div>
+      <div class="scn-row" onclick="openModal('ss4')">
+        <span class="rank" style="background:rgba(26,40,64,0.8);color:var(--grey)">4</span>
+        <div><div class="scn-name">CC_DC_SPECIFIC_MCC_CODE</div></div>
+        <div><div style="font-size:13px;font-weight:600">Canara</div><div class="scn-meta">CC/DC Channel</div></div>
+        <span><span class="badge b-blue">Monitoring</span></span>
+        <span style="font-family:var(--mono);font-size:13px;font-weight:600;text-align:right">3,076</span>
+        <span style="font-family:var(--mono);font-size:14px;font-weight:800;color:var(--rose3);text-align:right">70</span>
+      </div>
+      <div class="scn-row" onclick="openModal('ss5')">
+        <span class="rank" style="background:rgba(26,40,64,0.8);color:var(--grey)">5</span>
+        <div><div class="scn-name">S002B_MULE_ACCOUNT_FRAUD_INTU</div></div>
+        <div><div style="font-size:13px;font-weight:600">Mashreq UAE</div><div class="scn-meta">CBS Channel</div></div>
+        <span><span class="badge b-blue">Monitoring</span></span>
+        <span style="font-family:var(--mono);font-size:13px;font-weight:600;text-align:right">14,825</span>
+        <span style="font-family:var(--mono);font-size:14px;font-weight:800;color:var(--rose3);text-align:right">48</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="sc-chart"><div class="modal-box" style="max-width:1000px">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title">Top 5 Banks — Scenario Depth · Zoomed</div>
+  <div class="modal-sub">Monitoring vs Prevention scenarios</div>
+  <canvas id="scnBarZoom" height="320"></canvas>
+</div></div>
+
+<div class="modal-overlay" id="ss1"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--amber3)">🥇 DC_SUSP_MERCHANT_ECOM_POS</div>
+  <div class="modal-sub">Canara Bank · Debit Card Channel · Prevention Scenario</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px">
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:28px;font-weight:900;color:var(--amber3)">10,645</div><div style="font-size:11px;color:var(--grey2)">Alerts Generated</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:28px;font-weight:900;color:var(--rose3)">169</div><div style="font-size:11px;color:var(--grey2)">Frauds Detected</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:28px;font-weight:900;color:var(--green3)">1.6%</div><div style="font-size:11px;color:var(--grey2)">Fraud Hit Rate</div></div>
+  </div>
+  <p style="font-size:14px;color:var(--grey);line-height:1.7">This scenario detects suspicious merchant patterns in POS/eCommerce debit card transactions. It flags cards transacting at merchants known for high fraud rates, unusual MCC codes, or suspicious geographic patterns. As a Prevention scenario, it blocks the transaction in real-time before the debit completes — making it the most impactful rule in the ecosystem by fraud count.</p>
+</div></div>
+
+<div class="modal-overlay" id="ss2"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--grey)">🥈 IBMB_25_BEN_ADDITOAN_BY_CUSTOMER_INTU</div>
+  <div class="modal-sub">Ujjivan Bank · Internet/Mobile Banking · Monitoring</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px">
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:28px;font-weight:900;color:var(--blue2)">2,054</div><div style="font-size:11px;color:var(--grey2)">Alerts Generated</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:28px;font-weight:900;color:var(--rose3)">145</div><div style="font-size:11px;color:var(--grey2)">Frauds Detected</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:28px;font-weight:900;color:var(--amber3)">7.1%</div><div style="font-size:11px;color:var(--grey2)">Fraud Hit Rate</div></div>
+  </div>
+  <p style="font-size:14px;color:var(--grey);line-height:1.7">Detects beneficiary addition patterns that deviate from normal customer behavior — flagging when customers add multiple new beneficiaries in a short time window, a common precursor to social engineering fraud. Highest fraud hit rate (7.1%) among top 5 scenarios, meaning nearly 1 in 14 alerts results in a confirmed fraud.</p>
+</div></div>
+
+<div class="modal-overlay" id="ss3"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title">🥉 MB_47_MUL_MOB_DEV_LOGIN</div>
+  <div class="modal-sub">Canara Bank · Mobile Banking · Monitoring</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px">
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:28px;font-weight:900;color:var(--blue2)">5,046</div><div style="font-size:11px;color:var(--grey2)">Alerts Generated</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:28px;font-weight:900;color:var(--rose3)">129</div><div style="font-size:11px;color:var(--grey2)">Frauds Detected</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:28px;font-weight:900;color:var(--amber3)">2.6%</div><div style="font-size:11px;color:var(--grey2)">Fraud Hit Rate</div></div>
+  </div>
+  <p style="font-size:14px;color:var(--grey);line-height:1.7">Detects account takeover attempts via multiple mobile device logins — a strong signal of SIM swap fraud or credential theft. When a customer's account is accessed from multiple new devices within a short window, this scenario fires and enables investigators to freeze the account before significant damage occurs.</p>
+</div></div>
+
+<div class="modal-overlay" id="ss4"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title">4th — CC_DC_SPECIFIC_MCC_CODE</div>
+  <div class="modal-sub">Canara Bank · CC/DC Channel · Monitoring</div>
+  <p style="font-size:14px;color:var(--grey);line-height:1.7;margin-top:16px">Targets specific Merchant Category Codes (MCC) known to be associated with fraud — gambling sites, adult content, unauthorized financial services. 3,076 alerts and 70 confirmed frauds indicate solid precision for a monitoring scenario.</p>
+</div></div>
+
+<div class="modal-overlay" id="ss5"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title">5th — S002B_MULE_ACCOUNT_FRAUD_INTU</div>
+  <div class="modal-sub">Mashreq UAE · CBS Channel · Monitoring</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0">
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:28px;font-weight:900;color:var(--blue2)">14,825</div><div style="font-size:11px;color:var(--grey2)">Alerts</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:28px;font-weight:900;color:var(--rose3)">48</div><div style="font-size:11px;color:var(--grey2)">Frauds</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:28px;font-weight:900;color:var(--amber3)">0.32%</div><div style="font-size:11px;color:var(--grey2)">Hit Rate</div></div>
+  </div>
+  <p style="font-size:14px;color:var(--grey);line-height:1.7">Mule account detection scenario — identifies accounts being used to layer stolen funds. Core driver of Mashreq UAE's ₹10.4 Crore savings. Despite a lower hit rate, the high alert volume means each confirmed fraud has significant transaction value.</p>
+</div></div>
+
+<div class="modal-overlay" id="sg-iob"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--green3)">IOB — Growth Leader</div>
+  <div class="modal-sub">+15.5% total scenario growth · +6.6% prevention growth</div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:16px 0">
+    <div style="background:var(--card3);border-radius:12px;padding:18px"><div style="font-size:11px;color:var(--grey2);margin-bottom:6px">December</div><div style="font-size:28px;font-weight:900">220</div><div style="font-size:12px;color:var(--grey2)">121 prevention</div></div>
+    <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:12px;padding:18px"><div style="font-size:11px;color:var(--grey2);margin-bottom:6px">January</div><div style="font-size:28px;font-weight:900;color:var(--green3)">254</div><div style="font-size:12px;color:var(--grey2)">129 prevention <span style="color:var(--green3)">↑8</span></div></div>
+  </div>
+  <p style="font-size:14px;color:var(--grey);line-height:1.7">IOB added 34 new scenarios in January — the highest absolute growth in the ecosystem. Prevention scenarios grew from 121 to 129 (+6.6%). IOB now sits at 50.8% prevention ratio, just crossing the Leader threshold. At this growth rate, IOB is on track to challenge PNB and KOTAK in future editions.</p>
+</div></div>
+
+<div class="modal-overlay" id="sg-dib"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--violet3)">DIB — Fastest % Growth</div>
+  <div class="modal-sub">+16.7% — highest percentage growth in January</div>
+  <p style="font-size:14px;color:var(--grey);line-height:1.7;margin-top:16px">Dubai Islamic Bank added 3 new scenarios in January (18 → 21), representing the highest percentage growth in the ecosystem. As a Middle East bank with only 9.8% regional prevention ratio, DIB's growth signals increasing commitment to active fraud prevention. Current prevention ratio: 19.1% (4 prevention scenarios).</p>
+</div></div>
+
+<div class="page-footer">
+  <div class="pf-left">Page 5 of 7 · Clari5 State of Fraud Report · February 2026</div>
+  <div class="pf-nav">
+    <a class="pf-btn prev" href="detection.html">← Detection</a>
+    <a class="pf-btn next" href="i4c.html">I4C Intelligence →</a>
+  </div>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+const sCfg={
+  type:'bar',
+  data:{
+    labels:['KOTAK','PNB','IOB','CANARA','EQUITAS'],
+    datasets:[
+      {label:'Monitoring',data:[68,129,125,166,177],backgroundColor:'rgba(59,130,246,0.75)',borderRadius:6,barThickness:22},
+      {label:'Prevention',data:[305,159,129,76,35],backgroundColor:'rgba(20,184,166,0.75)',borderRadius:6,barThickness:22}
+    ]
+  },
+  options:{plugins:{legend:{labels:{font:{size:13}}}},scales:{x:{grid:{color:gc}},y:{grid:{color:gc}}}}
+};
+window.addEventListener('load',()=>{
+  new Chart(document.getElementById('scnBar'),JSON.parse(JSON.stringify(sCfg)));
+  let z=false;
+  document.getElementById('sc-chart').addEventListener('click',()=>{if(!z){z=true;setTimeout(()=>new Chart(document.getElementById('scnBarZoom'),JSON.parse(JSON.stringify(sCfg))),100)}});
+});
+</script>
+</body></html>

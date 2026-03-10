@@ -1,0 +1,186 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clari5 · I4C Intelligence</title>
+<link rel="stylesheet" href="_shared.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+.i4c-hero{
+  background:linear-gradient(135deg,rgba(124,58,237,0.14),rgba(59,130,246,0.08));
+  border:1px solid rgba(124,58,237,0.28);border-radius:24px;padding:48px;
+  display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center;margin-bottom:28px;
+  cursor:pointer;transition:all 0.3s;
+}
+.i4c-hero:hover{border-color:rgba(139,92,246,0.5);box-shadow:0 20px 60px rgba(124,58,237,0.15)}
+.i4c-num{font-size:80px;font-weight:900;letter-spacing:-3px;line-height:1;white-space:nowrap;background:linear-gradient(135deg,var(--violet3),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.layer-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;cursor:pointer;transition:all 0.25s}
+.layer-card:hover{border-color:var(--border2);transform:translateY(-4px)}
+.layer-num{font-size:48px;font-weight:900;letter-spacing:-2px;margin-bottom:8px}
+.flow-step{
+  display:flex;align-items:center;gap:0;
+}
+.flow-node{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:16px 20px;text-align:center;flex:1;cursor:pointer;transition:all 0.2s;
+}
+.flow-node:hover{border-color:var(--border2);background:var(--card2)}
+.flow-node-title{font-size:13px;font-weight:700;margin-bottom:4px}
+.flow-node-sub{font-size:11px;color:var(--grey2)}
+.flow-arrow{font-size:20px;color:var(--grey3);padding:0 8px;flex-shrink:0}
+</style>
+</head><body>
+<nav>
+  <a class="nav-brand" href="index.html"><div class="nav-dot"></div>Clari5 Intelligence</a>
+  <div class="nav-pages">
+    <a class="nav-page" href="index.html">Home</a><a class="nav-page" href="summary.html">Summary</a>
+    <a class="nav-page" href="maturity.html">Prevention</a><a class="nav-page" href="channels.html">Channels</a>
+    <a class="nav-page" href="detection.html">Detection</a><a class="nav-page" href="scenarios.html">Scenarios</a>
+    <a class="nav-page active" href="i4c.html">I4C</a><a class="nav-page" href="conclusion.html">Conclusion</a>
+  </div>
+  <div class="nav-edition">Edition 4 · Feb 2026</div>
+</nav>
+<div class="page">
+  <div class="page-hero fi">
+    <div class="ph-num">06 · I4C Intelligence</div>
+    <h1 class="ph-title">National Fraud <span class="hl">Network</span></h1>
+    <p class="ph-desc">Real-time integration with India's cybercrime coordination centre. Victim-reported fraud triggers instant fund tracing and mule account freeze across all transaction layers.</p>
+    <div class="ph-meta">
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--violet3)">1,37,607</div><div class="ph-stat-label">Complaints Processed</div></div>
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--blue2)">3</div><div class="ph-stat-label">CCCP Banks</div></div>
+      <div class="ph-stat"><div class="ph-stat-val" style="color:var(--teal3)">Real-time</div><div class="ph-stat-label">Integration</div></div>
+    </div>
+  </div>
+  <div class="page-inner">
+    <!-- BIG NUMBER CARD -->
+    <div class="i4c-hero fi" onclick="openModal('i4c-detail')">
+      <div class="i4c-num" id="i4c-n">0</div>
+      <div>
+        <div style="font-size:22px;font-weight:800;margin-bottom:12px">I4C Complaints Processed · January 2026</div>
+        <div style="font-size:15px;color:var(--grey);line-height:1.7">PNB, Canara and IDBI have deployed Clari5 CCCP products for real-time NCCRP integration. When a victim reports fraud, I4C traces stolen funds and issues instant freeze requests layer by layer across all connected bank accounts.</div>
+        <div style="margin-top:16px;font-size:12px;font-weight:700;color:var(--violet2)">Click to explore the mechanism →</div>
+      </div>
+    </div>
+
+    <!-- 3 BANK CARDS -->
+    <div class="g g3 fi d1" style="margin-bottom:28px">
+      <div class="card" style="border-color:rgba(124,58,237,0.25);cursor:pointer" onclick="openModal('ib-idbi')">
+        <div class="card-top" style="background:var(--violet2)"></div>
+        <div class="card-icon">🏦</div>
+        <div class="card-label">IDBI Bank</div>
+        <div class="card-val" style="color:var(--violet3)" id="c-idbi">0</div>
+        <div class="card-desc">I4C complaints via CCCP · January 2026</div>
+        <div style="margin-top:12px;font-size:11px;color:var(--violet2);font-weight:600">Click to explore →</div>
+      </div>
+      <div class="card" style="border-color:rgba(59,130,246,0.25);cursor:pointer" onclick="openModal('ib-pnb')">
+        <div class="card-top" style="background:var(--blue)"></div>
+        <div class="card-icon">🏛️</div>
+        <div class="card-label">PNB</div>
+        <div class="card-val" style="color:var(--blue2)" id="c-pnb">0</div>
+        <div class="card-desc">I4C complaints via CCCP · January 2026</div>
+        <div style="margin-top:12px;font-size:11px;color:var(--blue2);font-weight:600">Click to explore →</div>
+      </div>
+      <div class="card" style="border-color:rgba(13,148,136,0.25);cursor:pointer" onclick="openModal('ib-canara')">
+        <div class="card-top" style="background:var(--teal2)"></div>
+        <div class="card-icon">🏢</div>
+        <div class="card-label">Canara Bank</div>
+        <div class="card-val" style="color:var(--teal3)" id="c-canara">0</div>
+        <div class="card-desc">I4C complaints via CCCP · January 2026</div>
+        <div style="margin-top:12px;font-size:11px;color:var(--teal3);font-weight:600">Click to explore →</div>
+      </div>
+    </div>
+
+    <!-- FLOW DIAGRAM -->
+    <div class="cc fi d2">
+      <div class="cc-title">I4C Fund Trace Mechanism</div>
+      <div class="cc-sub">Click any step to understand the process</div>
+      <div class="flow-step" style="margin-top:8px">
+        <div class="flow-node" onclick="openModal('fl-1')" style="border-color:rgba(244,63,94,0.3)">
+          <div style="font-size:24px;margin-bottom:6px">👤</div>
+          <div class="flow-node-title" style="color:var(--rose3)">Victim Reports</div>
+          <div class="flow-node-sub">Files on NCCRP portal</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" onclick="openModal('fl-2')" style="border-color:rgba(245,158,11,0.3)">
+          <div style="font-size:24px;margin-bottom:6px">🔍</div>
+          <div class="flow-node-title" style="color:var(--amber3)">I4C Traces Funds</div>
+          <div class="flow-node-sub">National DB query</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" onclick="openModal('fl-3')" style="border-color:rgba(59,130,246,0.3)">
+          <div style="font-size:24px;margin-bottom:6px">⚡</div>
+          <div class="flow-node-title" style="color:var(--blue2)">CCCP Alert</div>
+          <div class="flow-node-sub">Real-time to Clari5</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" onclick="openModal('fl-4')" style="border-color:rgba(139,92,246,0.3)">
+          <div style="font-size:24px;margin-bottom:6px">🔒</div>
+          <div class="flow-node-title" style="color:var(--violet3)">Layer 1 Freeze</div>
+          <div class="flow-node-sub">First receiving account</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" onclick="openModal('fl-5')" style="border-color:rgba(20,184,166,0.3)">
+          <div style="font-size:24px;margin-bottom:6px">🛡️</div>
+          <div class="flow-node-title" style="color:var(--teal3)">Layer 2+ Freeze</div>
+          <div class="flow-node-sub">Downstream accounts</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node" onclick="openModal('fl-6')" style="border-color:rgba(34,197,94,0.3)">
+          <div style="font-size:24px;margin-bottom:6px">💰</div>
+          <div class="flow-node-title" style="color:var(--green3)">Recovery</div>
+          <div class="flow-node-sub">Funds returned</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="i4c-detail"><div class="modal-box">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-title" style="color:var(--violet3)">I4C CCCP — Complete Overview</div>
+  <div class="modal-sub">Indian Cyber Crime Coordination Centre · National Fraud Intelligence</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0">
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--violet3)">52,343</div><div style="font-size:11px;color:var(--grey2)">IDBI</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--blue2)">49,794</div><div style="font-size:11px;color:var(--grey2)">PNB</div></div>
+    <div style="background:var(--card3);border-radius:12px;padding:18px;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--teal3)">35,470</div><div style="font-size:11px;color:var(--grey2)">Canara</div></div>
+  </div>
+  <p style="font-size:14px;color:var(--grey);line-height:1.8">The CCCP (Cyber Crime Complaints Portal) module is a strategic differentiator for Clari5. It creates a closed loop between victim reporting, national intelligence, and bank-level action. Banks processing the most complaints are also handling the largest public trust — ensuring that fraud victims have their cases investigated and funds traced in real-time rather than waiting days or weeks for manual investigation. The total 1,37,607 complaints in a single month reflects the scale of India's digital fraud challenge and Clari5's role in addressing it.</p>
+</div></div>
+
+<div class="modal-overlay" id="fl-1"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--rose3)">Step 1: Victim Reports on NCCRP</div><div class="modal-sub">National Cyber Crime Reporting Portal</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">A fraud victim visits cybercrime.gov.in and files a complaint. They provide: the amount lost, date/time of the transaction, their bank account details, and any information about the fraudulent account. NCCRP assigns a complaint ID and immediately routes it to I4C for investigation. The speed of this report is critical — the faster the victim reports, the higher the chance of fund recovery before the fraudster disperses the money.</p></div></div>
+
+<div class="modal-overlay" id="fl-2"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--amber3)">Step 2: I4C Traces the Funds</div><div class="modal-sub">National fraud database analysis</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">I4C's national database identifies the destination account of the fraud (Layer 1). It then follows the money trail — if those funds were transferred onward to other accounts, those become Layer 2, Layer 3 etc. Each layer has progressively lower recovery probability as funds move further from the original fraud.</p></div></div>
+
+<div class="modal-overlay" id="fl-3"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--blue2)">Step 3: Real-time CCCP Alert to Clari5</div><div class="modal-sub">Instant notification to participating banks</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">I4C sends a real-time freeze request to all banks where traced accounts exist — if the account is at PNB, Canara, or IDBI, Clari5's CCCP module receives the alert instantly. This replaces the old manual process where a police complaint would take days to reach the bank's fraud team. Real-time processing is the core value proposition.</p></div></div>
+
+<div class="modal-overlay" id="fl-4"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--violet3)">Step 4: Layer 1 Account Freeze</div><div class="modal-sub">First receiving account — highest priority</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">Layer 1 is the account that directly received the stolen funds from the victim. Freezing this account is the highest priority action. If the fraudster hasn't moved the money yet, a Layer 1 freeze can result in 100% fund recovery. Clari5 automates this freeze action upon receiving the I4C alert, eliminating human delay.</p></div></div>
+
+<div class="modal-overlay" id="fl-5"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--teal3)">Step 5: Layer 2+ Downstream Freeze</div><div class="modal-sub">Following the money trail</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">If funds have been transferred onward, Layer 2 accounts (the accounts that received money from Layer 1) are targeted next. With each additional layer, recovery probability decreases — by Layer 4-5, funds are typically dispersed into cash or crypto. This is why early intervention at Layer 1 is so critical.</p></div></div>
+
+<div class="modal-overlay" id="fl-6"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--green3)">Step 6: Fund Recovery</div><div class="modal-sub">Return of stolen funds to victim</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">Once accounts are frozen, the legal and compliance process begins for fund reversal. The entire Clari5 CCCP process from complaint receipt to account freeze can happen in seconds — transforming what was a multi-day manual process into an automated, real-time response system. For victims, this speed is the difference between recovering their money and losing it permanently.</p></div></div>
+
+<div class="modal-overlay" id="ib-idbi"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--violet3)">IDBI Bank — 52,343 Complaints</div><div class="modal-sub">Largest I4C complaint volume in January 2026</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">IDBI processed the highest volume of I4C complaints — 52,343 in January 2026. This reflects both IDBI's large customer base and its comprehensive integration of the Clari5 CCCP module. High complaint volume correlates with greater public trust — customers knowing their fraud reports will trigger immediate action are more likely to report quickly.</p></div></div>
+
+<div class="modal-overlay" id="ib-pnb"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--blue2)">PNB — 49,794 Complaints</div><div class="modal-sub">Second highest I4C volume · Also a scenario growth leader</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">Punjab National Bank combines strong CCCP integration with one of the highest scenario counts in the ecosystem (288 scenarios, 55.2% prevention ratio). PNB represents a comprehensive fraud prevention strategy — both proactive prevention via scenarios and reactive response via I4C integration.</p></div></div>
+
+<div class="modal-overlay" id="ib-canara"><div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-title" style="color:var(--teal3)">Canara Bank — 35,470 Complaints</div><div class="modal-sub">Third highest I4C volume · Also top in amount saved</div><p style="font-size:14px;color:var(--grey);line-height:1.8;margin-top:16px">Canara Bank is the only bank appearing in three major rankings — I4C complaints, amount saved (₹5.4Cr), and highest alert volume (1.1M). This makes Canara the most comprehensively equipped bank in the India region for fraud management.</p></div></div>
+
+<div class="page-footer">
+  <div class="pf-left">Page 6 of 7 · Clari5 State of Fraud Report · February 2026</div>
+  <div class="pf-nav">
+    <a class="pf-btn prev" href="scenarios.html">← Scenarios</a>
+    <a class="pf-btn next" href="conclusion.html">Conclusion →</a>
+  </div>
+</div>
+
+<script src="_nav.js"></script>
+<script>
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    counter(document.getElementById('i4c-n'),137607);
+    counter(document.getElementById('c-idbi'),52343);
+    counter(document.getElementById('c-pnb'),49794);
+    counter(document.getElementById('c-canara'),35470);
+  },400);
+});
+</script>
+</body></html>
