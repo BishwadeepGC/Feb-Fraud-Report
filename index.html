@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clari5 | State of Fraud Report — February 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #020b18;
+  --navy2: #071428;
+  --panel: #0b1c2e;
+  --panel2: #0f2440;
+  --border: rgba(0,180,255,0.12);
+  --cyan: #00c8ff;
+  --cyan2: #00f0c8;
+  --gold: #ffd166;
+  --red: #ff4d6d;
+  --green: #06d6a0;
+  --orange: #ff9f1c;
+  --purple: #9b72cf;
+  --text: #e8f4ff;
+  --text2: #7aa8cc;
+  --text3: #3d6480;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  overflow-x: hidden;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 2px; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(2,11,24,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 60px;
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 18px;
+  color: var(--cyan);
+  letter-spacing: -0.5px;
+}
+.nav-logo span { color: var(--text2); font-weight: 400; }
+.nav-links { display: flex; gap: 4px; }
+.nav-link {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none; background: none;
+}
+.nav-link:hover, .nav-link.active {
+  background: rgba(0,200,255,0.12);
+  color: var(--cyan);
+}
+.nav-badge {
+  font-size: 11px; font-weight: 600;
+  background: linear-gradient(135deg, var(--cyan), var(--green));
+  color: var(--navy);
+  padding: 3px 10px; border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 32px 40px;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,200,255,0.15) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(6,214,160,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 10% 70%, rgba(155,114,207,0.08) 0%, transparent 60%);
+}
+.grid-lines {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(0,200,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,200,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-content { position: relative; z-index: 1; text-align: center; max-width: 900px; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,200,255,0.1);
+  border: 1px solid rgba(0,200,255,0.25);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 12px; font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--cyan);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+}
+.hero-title .line1 { color: var(--text); }
+.hero-title .accent { 
+  background: linear-gradient(90deg, var(--cyan), var(--green));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-subtitle {
+  font-size: 17px; font-weight: 300;
+  color: var(--text2);
+  line-height: 1.6;
+  max-width: 620px; margin: 0 auto 48px;
+}
+.hero-metrics {
+  display: flex; gap: 0; justify-content: center;
+  background: rgba(11,28,46,0.8);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+}
+.hero-metric {
+  padding: 24px 36px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+  flex: 1;
+  position: relative;
+  cursor: default;
+  transition: background 0.3s;
+}
+.hero-metric:last-child { border-right: none; }
+.hero-metric:hover { background: rgba(0,200,255,0.06); }
+.hero-metric-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px; font-weight: 800;
+  color: var(--cyan);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.hero-metric-val.gold { color: var(--gold); }
+.hero-metric-val.green { color: var(--green); }
+.hero-metric-val.orange { color: var(--orange); }
+.hero-metric-label {
+  font-size: 11px; font-weight: 500;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.hero-metric-sub {
+  font-size: 12px; color: var(--text2);
+  margin-top: 4px;
+}
+.scroll-hint {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center;
+  color: var(--text3); font-size: 12px; gap: 8px;
+  animation: float 2s ease-in-out infinite;
+  cursor: pointer; z-index: 1;
+}
+.scroll-hint svg { opacity: 0.5; }
+@keyframes float {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* SECTIONS */
+section {
+  padding: 80px 32px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.section-header {
+  display: flex; align-items: baseline; gap: 16px;
+  margin-bottom: 40px;
+}
+.section-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px; font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px; font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.section-desc { color: var(--text2); font-size: 14px; line-height: 1.6; margin-top: 8px; max-width: 700px; }
+
+/* CARDS GRID */
+.cards-grid { display: grid; gap: 16px; }
+.cards-2 { grid-template-columns: repeat(2, 1fr); }
+.cards-3 { grid-template-columns: repeat(3, 1fr); }
+.cards-4 { grid-template-columns: repeat(4, 1fr); }
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.2s;
+}
+.card:hover {
+  border-color: rgba(0,200,255,0.3);
+  transform: translateY(-2px);
+}
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card:hover::before { opacity: 1; }
+.card-label {
+  font-size: 11px; font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+.card-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 36px; font-weight: 800;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.card-desc { font-size: 13px; color: var(--text2); line-height: 1.5; }
+.card-accent { width: 32px; height: 3px; border-radius: 2px; margin-bottom: 16px; }
+
+/* CHART CARD */
+.chart-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  transition: border-color 0.3s;
+}
+.chart-card:hover { border-color: rgba(0,200,255,0.25); }
+.chart-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px; font-weight: 700;
+  margin-bottom: 4px;
+}
+.chart-sub { font-size: 12px; color: var(--text3); margin-bottom: 24px; }
+canvas { display: block; }
+
+/* TABLES */
+.data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 4px;
+}
+.data-table thead th {
+  font-size: 11px; font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.data-table tbody tr {
+  background: rgba(15,36,64,0.5);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.data-table tbody tr:hover { background: rgba(0,200,255,0.06); }
+.data-table tbody td {
+  padding: 12px 14px;
+  font-size: 13px;
+}
+.data-table tbody tr td:first-child { border-radius: 8px 0 0 8px; }
+.data-table tbody tr td:last-child { border-radius: 0 8px 8px 0; }
+.rank-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 6px;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px; font-weight: 700;
+  background: rgba(0,200,255,0.15);
+  color: var(--cyan);
+}
+.rank-badge.gold { background: rgba(255,209,102,0.15); color: var(--gold); }
+.rank-badge.silver { background: rgba(200,200,220,0.15); color: #c0cce0; }
+.rank-badge.bronze { background: rgba(255,159,28,0.1); color: var(--orange); }
+
+/* PROGRESS BARS */
+.prog-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.prog-label { font-size: 13px; min-width: 140px; color: var(--text2); }
+.prog-track { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 3px; transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
+.prog-val { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; min-width: 40px; text-align: right; }
+
+/* MATURITY TIERS */
+.tier-row {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tier-row:hover { border-color: rgba(0,200,255,0.3); background: var(--panel2); }
+.tier-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.tier-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px; font-weight: 700;
+}
+.tier-banks { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.tier-count {
+  margin-left: auto;
+  font-family: 'Syne', sans-serif;
+  font-size: 22px; font-weight: 800;
+}
+
+/* REGION PILLS */
+.region-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.region-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.region-card:hover { transform: translateY(-3px); border-color: rgba(0,200,255,0.3); }
+.region-card .region-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px; font-weight: 700;
+  margin-bottom: 16px;
+}
+.region-flag {
+  position: absolute; top: 16px; right: 16px;
+  font-size: 26px;
+}
+.region-stat { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.region-stat-label { font-size: 12px; color: var(--text3); }
+.region-stat-val { font-size: 12px; font-weight: 600; }
+.region-bar { height: 4px; border-radius: 2px; margin-top: 12px; }
+
+/* SCENARIO PILLS */
+.scenario-list { display: flex; flex-direction: column; gap: 8px; }
+.scenario-item {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.scenario-item:hover { border-color: rgba(0,200,255,0.3); background: var(--panel2); }
+.scn-name { flex: 1; font-size: 12px; font-family: 'DM Sans', monospace; color: var(--text2); }
+.scn-bank { font-size: 11px; color: var(--text3); min-width: 80px; }
+.scn-type {
+  font-size: 10px; font-weight: 600;
+  padding: 3px 8px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.scn-type.mon { background: rgba(0,200,255,0.12); color: var(--cyan); }
+.scn-type.prev { background: rgba(6,214,160,0.12); color: var(--green); }
+.scn-alerts { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; min-width: 60px; text-align: right; }
+.scn-fraud { font-size: 12px; color: var(--red); min-width: 50px; text-align: right; }
+
+/* I4C SECTION */
+.i4c-banner {
+  background: linear-gradient(135deg, rgba(155,114,207,0.15), rgba(0,200,255,0.1));
+  border: 1px solid rgba(155,114,207,0.3);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex; gap: 40px; align-items: center;
+  margin-bottom: 24px;
+}
+.i4c-big {
+  font-family: 'Syne', sans-serif;
+  font-size: 56px; font-weight: 800;
+  color: var(--purple);
+  flex-shrink: 0;
+  line-height: 1;
+}
+.i4c-desc { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+/* CONCLUSION CARDS */
+.conclusion-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.conclusion-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex; gap: 14px;
+  align-items: flex-start;
+  transition: all 0.2s;
+}
+.conclusion-card:hover { border-color: rgba(6,214,160,0.3); background: var(--panel2); }
+.conclusion-icon { font-size: 24px; flex-shrink: 0; }
+.conclusion-text { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.conclusion-text strong { color: var(--text); font-weight: 600; }
+
+/* DIVIDER */
+.section-divider {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* TABS */
+.tab-row { display: flex; gap: 4px; margin-bottom: 24px; }
+.tab-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px; font-weight: 500;
+  color: var(--text2);
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: none;
+  transition: all 0.2s;
+}
+.tab-btn.active {
+  background: rgba(0,200,255,0.12);
+  border-color: rgba(0,200,255,0.25);
+  color: var(--cyan);
+}
+.tab-btn:hover:not(.active) { color: var(--text); background: rgba(255,255,255,0.04); }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+/* TOOLTIP */
+.tooltip-wrapper { position: relative; display: inline-block; }
+.tooltip-content {
+  display: none;
+  position: absolute;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px; color: var(--text2);
+  white-space: nowrap;
+  z-index: 100;
+  bottom: calc(100% + 8px);
+  left: 50%; transform: translateX(-50%);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.tooltip-wrapper:hover .tooltip-content { display: block; }
+
+/* FOOTER */
+footer {
+  background: var(--navy2);
+  border-top: 1px solid var(--border);
+  padding: 28px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; color: var(--cyan);
+  font-size: 15px;
+}
+.footer-meta { font-size: 12px; color: var(--text3); }
+
+/* ANIMATIONS */
+.reveal {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* EDITION PROGRESS */
+.edition-track {
+  display: flex; gap: 0;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.edition-col {
+  flex: 1; padding: 20px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.edition-col:last-child { border-right: none; }
+.edition-label { font-size: 11px; color: var(--text3); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+.edition-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px; font-weight: 800;
+}
+.edition-delta {
+  font-size: 12px; margin-top: 4px;
+}
+.up { color: var(--green); }
+.down { color: var(--red); }
+
+@media (max-width: 768px) {
+  .hero-metrics { flex-direction: column; }
+  .hero-metric { border-right: none; border-bottom: 1px solid var(--border); }
+  .cards-3, .cards-4 { grid-template-columns: 1fr 1fr; }
+  .cards-2, .region-grid, .conclusion-grid { grid-template-columns: 1fr; }
+  nav { padding: 0 16px; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Clari5 <span>Intelligence</span></div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="scrollTo('#summary')">Executive Summary</button>
+    <button class="nav-link" onclick="scrollTo('#maturity')">Prevention Maturity</button>
+    <button class="nav-link" onclick="scrollTo('#channels')">Channels</button>
+    <button class="nav-link" onclick="scrollTo('#detection')">Detection</button>
+    <button class="nav-link" onclick="scrollTo('#scenarios')">Scenarios</button>
+    <button class="nav-link" onclick="scrollTo('#i4c')">I4C Intelligence</button>
+  </div>
+  <div class="nav-badge">FEB 2026 · EDITION 4</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+  <div class="hero-content reveal">
+    <div class="hero-tag">
+      <div class="pulse-dot"></div>
+      State of Fraud Report · January 2026 Data
+    </div>
+    <div class="hero-title">
+      <div class="line1">Fraud Prevention</div>
+      <div class="accent">Intelligence Report</div>
+    </div>
+    <p class="hero-subtitle">A consolidated strategic view of fraud readiness, prevention maturity, and detection outcomes across 25 banking institutions spanning 4 regions.</p>
+    <div class="hero-metrics">
+      <div class="hero-metric">
+        <div class="hero-metric-val" id="cnt-banks">0</div>
+        <div class="hero-metric-label">Banks Covered</div>
+        <div class="hero-metric-sub">Across 4 Regions</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-val" id="cnt-scenarios">0</div>
+        <div class="hero-metric-label">Active Scenarios</div>
+        <div class="hero-metric-sub">Total Rules Deployed</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-val green" id="cnt-ratio">0%</div>
+        <div class="hero-metric-label">Prevention Ratio</div>
+        <div class="hero-metric-sub">Across 16 Banks</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-val orange" id="cnt-alerts">0</div>
+        <div class="hero-metric-label">Monthly Alerts</div>
+        <div class="hero-metric-sub">Fraud Signals Processed</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-val gold" id="cnt-saved">₹0Cr</div>
+        <div class="hero-metric-label">Amount Saved</div>
+        <div class="hero-metric-sub">Confirmed Fraud Prevention</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint" onclick="document.getElementById('summary').scrollIntoView({behavior:'smooth'})">
+    <span>Scroll to explore</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<section id="summary">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <div>
+      <div class="section-title">Executive Summary</div>
+      <div class="section-desc">Edition 4 reflects continued momentum — 828 active prevention scenarios protecting over 1.17 billion customers across India, Southeast Asia, Middle East and Africa.</div>
+    </div>
+  </div>
+
+  <!-- KEY FINDINGS TABLE -->
+  <div class="chart-card reveal" style="margin-bottom:16px;">
+    <div class="chart-title">Key Findings</div>
+    <div class="chart-sub">Strategic highlights from January 2026</div>
+    <table class="data-table">
+      <thead><tr><th>Area</th><th>Finding</th></tr></thead>
+      <tbody>
+        <tr><td><span style="color:var(--cyan);font-weight:600">Prevention Growth</span></td><td style="color:var(--text2)">828 active prevention scenarios. Southeast Asia leads at 78% prevention ratio.</td></tr>
+        <tr><td><span style="color:var(--green);font-weight:600">Regional Maturity</span></td><td style="color:var(--text2)">India 36.5% | SE Asia 78% | Africa 31.6% | Middle East 9.8%</td></tr>
+        <tr><td><span style="color:var(--orange);font-weight:600">Fraud Detection</span></td><td style="color:var(--text2)">3.54M alerts processed. 1,480 confirmed frauds detected. ₹15.8 Crore saved.</td></tr>
+        <tr><td><span style="color:var(--purple);font-weight:600">I4C Integration</span></td><td style="color:var(--text2)">3 banks (IDBI, PNB, Canara) processed 1,37,607 complaints via CCCP module.</td></tr>
+        <tr><td><span style="color:var(--gold);font-weight:600">Transaction Scale</span></td><td style="color:var(--text2)">7.3 Billion monthly transactions monitored across the ecosystem.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EDITION PROGRESS -->
+  <div class="reveal">
+    <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">Edition Progress — Nov 2025 → Jan 2026</div>
+    <div class="edition-track">
+      <div class="edition-col">
+        <div class="edition-label">Metric</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:8px;">Banks / Scenarios / Prevention / Frauds</div>
+      </div>
+      <div class="edition-col">
+        <div class="edition-label">November 2025</div>
+        <div class="edition-val">28</div>
+        <div style="font-size:12px;color:var(--text3);">2586 scenarios · 676 prev</div>
+        <div class="edition-delta" style="color:var(--text3)">869 frauds</div>
+      </div>
+      <div class="edition-col">
+        <div class="edition-label">December 2025</div>
+        <div class="edition-val">26</div>
+        <div style="font-size:12px;color:var(--text3);">2305 scenarios · 839 prev</div>
+        <div class="edition-delta up">↑ 1155 frauds</div>
+      </div>
+      <div class="edition-col">
+        <div class="edition-label">January 2026 ●</div>
+        <div class="edition-val" style="color:var(--cyan)">25</div>
+        <div style="font-size:12px;color:var(--text3);">2290 scenarios · 828 prev</div>
+        <div class="edition-delta up">↑ 1557 frauds</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- PREVENTION MATURITY -->
+<section id="maturity">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <div>
+      <div class="section-title">Prevention Maturity Analysis</div>
+      <div class="section-desc">16 banks actively deploying prevention scenarios, categorized across four maturity tiers based on prevention ratio performance.</div>
+    </div>
+  </div>
+
+  <div class="cards-grid cards-2 reveal" style="margin-bottom:24px;">
+    <!-- MATURITY TIERS -->
+    <div class="chart-card">
+      <div class="chart-title">Maturity Tiers</div>
+      <div class="chart-sub">Classified by Prevention Ratio (%)</div>
+      <div class="tier-row" onclick="highlightTier('leaders')">
+        <div class="tier-icon" style="background:rgba(255,209,102,0.15);font-size:18px;">🏆</div>
+        <div>
+          <div class="tier-name" style="color:var(--gold)">LEADERS <span style="font-size:11px;color:var(--text3);font-weight:400">&gt;50% prevention</span></div>
+          <div class="tier-banks">KOTAK (81.8%), CIMB EFM (78%), FBN (57%), PNB (55.2%), IOB (50.8%)</div>
+        </div>
+        <div class="tier-count" style="color:var(--gold)">5</div>
+      </div>
+      <div class="tier-row" onclick="highlightTier('established')">
+        <div class="tier-icon" style="background:rgba(0,200,255,0.1)">🔷</div>
+        <div>
+          <div class="tier-name" style="color:var(--cyan)">ESTABLISHED <span style="font-size:11px;color:var(--text3);font-weight:400">25–50%</span></div>
+          <div class="tier-banks">CANARA (31.4%), YES (25.3%), SBM (~22%)</div>
+        </div>
+        <div class="tier-count" style="color:var(--cyan)">3</div>
+      </div>
+      <div class="tier-row" onclick="highlightTier('developing')">
+        <div class="tier-icon" style="background:rgba(255,159,28,0.1)">📈</div>
+        <div>
+          <div class="tier-name" style="color:var(--orange)">DEVELOPING <span style="font-size:11px;color:var(--text3);font-weight:400">10–25%</span></div>
+          <div class="tier-banks">DIB (19.1%), GCB (18.8%), UJJIVAN (18%), EQUITAS (16.5%), RUYA (~13%)</div>
+        </div>
+        <div class="tier-count" style="color:var(--orange)">5</div>
+      </div>
+      <div class="tier-row" onclick="highlightTier('basic')">
+        <div class="tier-icon" style="background:rgba(255,77,109,0.1)">🔸</div>
+        <div>
+          <div class="tier-name" style="color:var(--red)">BASIC <span style="font-size:11px;color:var(--text3);font-weight:400">1–10%</span></div>
+          <div class="tier-banks">BOI (7%), WEGAGEN (5.9%), FEDERAL (3.5%)</div>
+        </div>
+        <div class="tier-count" style="color:var(--red)">3</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-icon" style="background:rgba(120,150,180,0.1)">📊</div>
+        <div>
+          <div class="tier-name" style="color:var(--text2)">MONITORING ONLY <span style="font-size:11px;color:var(--text3);font-weight:400">0% prevention</span></div>
+          <div class="tier-banks">AXIS, SIB, TMB, SURYODAYA, NBQ, VCB, NKGSB, MASHREQ UAE, MASHREQ EGYPT</div>
+        </div>
+        <div class="tier-count" style="color:var(--text2)">9</div>
+      </div>
+    </div>
+
+    <!-- PREVENTION CHART -->
+    <div class="chart-card">
+      <div class="chart-title">Prevention Ratio — Top Banks</div>
+      <div class="chart-sub">% of prevention scenarios vs total</div>
+      <canvas id="prevChart" height="280"></canvas>
+    </div>
+  </div>
+
+  <!-- REGIONAL -->
+  <div class="section-header reveal" style="margin-bottom:20px;">
+    <span style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:1px;">Regional Prevention Ratios</span>
+  </div>
+  <div class="region-grid reveal">
+    <div class="region-card">
+      <div class="region-flag">🌏</div>
+      <div class="region-name">Southeast Asia</div>
+      <div class="region-stat"><span class="region-stat-label">Banks</span><span class="region-stat-val">1</span></div>
+      <div class="region-stat"><span class="region-stat-label">Scenarios</span><span class="region-stat-val">36</span></div>
+      <div class="region-stat"><span class="region-stat-label">Prevention</span><span class="region-stat-val" style="color:var(--green)">28</span></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
+        <div class="prog-track" style="flex:1"><div class="prog-fill" style="width:78%;background:var(--green)"></div></div>
+        <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--green)">78%</span>
+      </div>
+    </div>
+    <div class="region-card">
+      <div class="region-flag">🇮🇳</div>
+      <div class="region-name">India</div>
+      <div class="region-stat"><span class="region-stat-label">Banks</span><span class="region-stat-val">15</span></div>
+      <div class="region-stat"><span class="region-stat-label">Scenarios</span><span class="region-stat-val">2076</span></div>
+      <div class="region-stat"><span class="region-stat-label">Prevention</span><span class="region-stat-val" style="color:var(--cyan)">757</span></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
+        <div class="prog-track" style="flex:1"><div class="prog-fill" style="width:36.5%;background:var(--cyan)"></div></div>
+        <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--cyan)">36.5%</span>
+      </div>
+    </div>
+    <div class="region-card">
+      <div class="region-flag">🌍</div>
+      <div class="region-name">Africa</div>
+      <div class="region-stat"><span class="region-stat-label">Banks</span><span class="region-stat-val">5</span></div>
+      <div class="region-stat"><span class="region-stat-label">Scenarios</span><span class="region-stat-val">117</span></div>
+      <div class="region-stat"><span class="region-stat-label">Prevention</span><span class="region-stat-val" style="color:var(--orange)">37</span></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
+        <div class="prog-track" style="flex:1"><div class="prog-fill" style="width:32%;background:var(--orange)"></div></div>
+        <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--orange)">31.6%</span>
+      </div>
+    </div>
+    <div class="region-card">
+      <div class="region-flag">🌙</div>
+      <div class="region-name">Middle East</div>
+      <div class="region-stat"><span class="region-stat-label">Banks</span><span class="region-stat-val">4</span></div>
+      <div class="region-stat"><span class="region-stat-label">Scenarios</span><span class="region-stat-val">61</span></div>
+      <div class="region-stat"><span class="region-stat-label">Prevention</span><span class="region-stat-val" style="color:var(--purple)">6</span></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
+        <div class="prog-track" style="flex:1"><div class="prog-fill" style="width:9.8%;background:var(--purple)"></div></div>
+        <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--purple)">9.8%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- CHANNEL COVERAGE -->
+<section id="channels">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <div>
+      <div class="section-title">Channel Coverage Analysis</div>
+      <div class="section-desc">Distribution of fraud scenarios across banking channels. CBS/Branch leads with deep core banking monitoring while digital channels provide real-time prevention.</div>
+    </div>
+  </div>
+
+  <div class="cards-grid cards-2 reveal">
+    <div class="chart-card">
+      <div class="chart-title">Scenario Distribution by Channel</div>
+      <div class="chart-sub">January 2026 · 2,193 classified scenarios</div>
+      <canvas id="channelDoughnut" height="260"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Channel Detail</div>
+      <div class="chart-sub">Scenario count and share</div>
+      <div style="margin-top:8px;">
+        <div class="prog-row">
+          <div class="prog-label">CBS / Branch</div>
+          <div class="prog-track"><div class="prog-fill" style="width:45%;background:var(--cyan)"></div></div>
+          <div class="prog-val" style="color:var(--cyan)">45%</div>
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin:-8px 0 14px 140px;">995 scenarios — Core banking, treasury, branch ops</div>
+        <div class="prog-row">
+          <div class="prog-label">Internet / MB</div>
+          <div class="prog-track"><div class="prog-fill" style="width:22%;background:var(--green)"></div></div>
+          <div class="prog-val" style="color:var(--green)">22%</div>
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin:-8px 0 14px 140px;">491 scenarios — Digital banking fraud prevention</div>
+        <div class="prog-row">
+          <div class="prog-label">Cards</div>
+          <div class="prog-track"><div class="prog-fill" style="width:15%;background:var(--orange)"></div></div>
+          <div class="prog-val" style="color:var(--orange)">15%</div>
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin:-8px 0 14px 140px;">339 scenarios — Debit/credit, ATM, mPOS</div>
+        <div class="prog-row">
+          <div class="prog-label">Cross Channel</div>
+          <div class="prog-track"><div class="prog-fill" style="width:9%;background:var(--purple)"></div></div>
+          <div class="prog-val" style="color:var(--purple)">9%</div>
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin:-8px 0 14px 140px;">207 scenarios — Behavioural & pattern analysis</div>
+        <div class="prog-row">
+          <div class="prog-label">UPI</div>
+          <div class="prog-track"><div class="prog-fill" style="width:7%;background:var(--gold)"></div></div>
+          <div class="prog-val" style="color:var(--gold)">7%</div>
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin:-8px 0 14px 140px;">161 scenarios — UPI, QR, BHIM payment rails</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- DETECTION OUTCOMES -->
+<section id="detection">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <div>
+      <div class="section-title">Detection Outcomes</div>
+      <div class="section-desc">Measurable results protecting customers and financial institutions from significant losses. ₹15.8 Crore confirmed savings across the ecosystem.</div>
+    </div>
+  </div>
+
+  <div class="cards-grid cards-3 reveal" style="margin-bottom:24px;">
+    <div class="card">
+      <div class="card-accent" style="background:var(--cyan)"></div>
+      <div class="card-label">Total Alerts Generated</div>
+      <div class="card-val" style="color:var(--cyan)">3.54M</div>
+      <div class="card-desc">Fraud signals processed across all 25 banks in January 2026</div>
+    </div>
+    <div class="card">
+      <div class="card-accent" style="background:var(--red)"></div>
+      <div class="card-label">Confirmed Frauds Detected</div>
+      <div class="card-val" style="color:var(--red)">1,480</div>
+      <div class="card-desc">Confirmed fraud cases including 1,557 newly flagged frauds this month</div>
+    </div>
+    <div class="card">
+      <div class="card-accent" style="background:var(--gold)"></div>
+      <div class="card-label">Total Amount Saved</div>
+      <div class="card-val" style="color:var(--gold)">₹15.8Cr</div>
+      <div class="card-desc">Mashreq UAE ₹10.4Cr + Canara ₹5.4Cr confirmed savings</div>
+    </div>
+  </div>
+
+  <!-- TABS for detection detail -->
+  <div class="tab-row reveal">
+    <button class="tab-btn active" onclick="switchTab('bank-tab','det-tabs')">Bank Rankings</button>
+    <button class="tab-btn" onclick="switchTab('region-tab','det-tabs')">Region View</button>
+    <button class="tab-btn" onclick="switchTab('trend-tab','det-tabs')">Amount Trend</button>
+  </div>
+
+  <div id="det-tabs" class="reveal">
+    <div id="bank-tab" class="tab-pane active">
+      <div class="chart-card">
+        <div class="chart-title">Top 5 Banks — Alerts, Frauds & Amount Saved</div>
+        <div class="chart-sub">January 2026 · *includes suspicious and confirmed frauds</div>
+        <table class="data-table">
+          <thead><tr><th>#</th><th>Bank</th><th>Total Alerts</th><th>Frauds Detected</th><th>Amount Saved</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="rank-badge gold">1</span></td>
+              <td><strong>MASHREQ UAE</strong></td>
+              <td>52,877</td>
+              <td><span style="color:var(--red)">132</span></td>
+              <td><span style="color:var(--gold)">₹10.4 Crore</span></td>
+            </tr>
+            <tr>
+              <td><span class="rank-badge silver">2</span></td>
+              <td><strong>CANARA</strong></td>
+              <td>11,19,398</td>
+              <td><span style="color:var(--red)">875*</span></td>
+              <td><span style="color:var(--gold)">₹5.4 Crore</span></td>
+            </tr>
+            <tr>
+              <td><span class="rank-badge bronze">3</span></td>
+              <td><strong>UJJIVAN</strong></td>
+              <td>1,02,397</td>
+              <td><span style="color:var(--red)">288</span></td>
+              <td><span style="color:var(--text3)">—</span></td>
+            </tr>
+            <tr>
+              <td><span class="rank-badge">4</span></td>
+              <td><strong>BOI</strong></td>
+              <td>2,06,289</td>
+              <td><span style="color:var(--red)">106</span></td>
+              <td><span style="color:var(--text3)">—</span></td>
+            </tr>
+            <tr>
+              <td><span class="rank-badge">5</span></td>
+              <td><strong>KOTAK</strong></td>
+              <td>3,86,721</td>
+              <td><span style="color:var(--red)">107</span></td>
+              <td><span style="color:var(--text3)">—</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="region-tab" class="tab-pane">
+      <div class="chart-card">
+        <div class="chart-title">Region-wise Alerts & Detection · January 2026</div>
+        <div class="chart-sub">Total alerts, confirmed frauds, and amount saved by region</div>
+        <canvas id="regionChart" height="220"></canvas>
+      </div>
+    </div>
+    <div id="trend-tab" class="tab-pane">
+      <div class="chart-card">
+        <div class="chart-title">Amount Saved Trend — Mashreq UAE & Canara</div>
+        <div class="chart-sub">Nov 2025 → Jan 2026</div>
+        <canvas id="trendChart" height="220"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SCENARIOS -->
+<section id="scenarios">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <div>
+      <div class="section-title">Scenario & Bank Analysis</div>
+      <div class="section-desc">Top scenario deployments, high-performing detection rules, and bank-level scenario breakdown.</div>
+    </div>
+  </div>
+
+  <div class="cards-grid cards-2 reveal" style="margin-bottom:20px;">
+    <div class="chart-card">
+      <div class="chart-title">Top 5 Banks by Scenario Deployment</div>
+      <div class="chart-sub">Total, monitoring and prevention scenarios</div>
+      <canvas id="scenarioBar" height="260"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Scenario Growth Leaders</div>
+      <div class="chart-sub">Banks adding the most new scenarios (Dec → Jan)</div>
+      <div style="margin-top:12px;">
+        <div class="prog-row">
+          <div class="prog-label">IOB</div>
+          <div class="prog-track"><div class="prog-fill" style="width:78%;background:linear-gradient(90deg,var(--cyan),var(--green))"></div></div>
+          <div class="prog-val" style="color:var(--green)">+15.5%</div>
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin:-8px 0 16px 140px;">220 → 254 scenarios</div>
+        <div class="prog-row">
+          <div class="prog-label">DIB</div>
+          <div class="prog-track"><div class="prog-fill" style="width:85%;background:linear-gradient(90deg,var(--cyan),var(--green))"></div></div>
+          <div class="prog-val" style="color:var(--green)">+16.7%</div>
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin:-8px 0 16px 140px;">18 → 21 scenarios</div>
+        <div class="prog-row">
+          <div class="prog-label">WEGAGEN</div>
+          <div class="prog-track"><div class="prog-fill" style="width:60%;background:linear-gradient(90deg,var(--cyan),var(--green))"></div></div>
+          <div class="prog-val" style="color:var(--green)">+11.8%</div>
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin:-8px 0 16px 140px;">17 → 19 scenarios</div>
+      </div>
+      <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:16px;">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">Prevention Growth</div>
+        <div class="prog-row">
+          <div class="prog-label">IOB</div>
+          <div class="prog-track"><div class="prog-fill" style="width:60%;background:var(--green)"></div></div>
+          <div class="prog-val" style="color:var(--green)">+6.6%</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">FBN</div>
+          <div class="prog-track"><div class="prog-fill" style="width:30%;background:var(--green)"></div></div>
+          <div class="prog-val" style="color:var(--green)">+3%</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">PNB</div>
+          <div class="prog-track"><div class="prog-fill" style="width:20%;background:var(--green)"></div></div>
+          <div class="prog-val" style="color:var(--green)">+2%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY SCENARIOS -->
+  <div class="reveal">
+    <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text2);margin-bottom:14px;text-transform:uppercase;letter-spacing:1px;">Top Performing Scenarios — January 2026</div>
+    <div class="scenario-list">
+      <div class="scenario-item">
+        <span class="rank-badge gold">1</span>
+        <span class="scn-name">DC_SUSP_MERCHANT_ECOM_POS</span>
+        <span class="scn-bank">Canara · DC</span>
+        <span class="scn-type prev">Prevention</span>
+        <span class="scn-alerts">10,645 alerts</span>
+        <span class="scn-fraud">169 frauds</span>
+      </div>
+      <div class="scenario-item">
+        <span class="rank-badge silver">2</span>
+        <span class="scn-name">IBMB_25_BEN_ADDITOAN_BY_CUSTOMER_INTU</span>
+        <span class="scn-bank">Ujjivan · IB/MB</span>
+        <span class="scn-type mon">Monitoring</span>
+        <span class="scn-alerts">2,054 alerts</span>
+        <span class="scn-fraud">145 frauds</span>
+      </div>
+      <div class="scenario-item">
+        <span class="rank-badge bronze">3</span>
+        <span class="scn-name">MB_47_MUL_MOB_DEV_LOGIN</span>
+        <span class="scn-bank">Canara · MB</span>
+        <span class="scn-type mon">Monitoring</span>
+        <span class="scn-alerts">5,046 alerts</span>
+        <span class="scn-fraud">129 frauds</span>
+      </div>
+      <div class="scenario-item">
+        <span class="rank-badge">4</span>
+        <span class="scn-name">CC_DC_SPECIFIC_MCC_CODE</span>
+        <span class="scn-bank">Canara · CC/DC</span>
+        <span class="scn-type mon">Monitoring</span>
+        <span class="scn-alerts">3,076 alerts</span>
+        <span class="scn-fraud">70 frauds</span>
+      </div>
+      <div class="scenario-item">
+        <span class="rank-badge">5</span>
+        <span class="scn-name">S002B_MULE_ACCOUNT_FRAUD_INTU</span>
+        <span class="scn-bank">Mashreq UAE · CBS</span>
+        <span class="scn-type mon">Monitoring</span>
+        <span class="scn-alerts">14,825 alerts</span>
+        <span class="scn-fraud">48 frauds</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- I4C -->
+<section id="i4c">
+  <div class="section-header reveal">
+    <span class="section-num">06</span>
+    <div>
+      <div class="section-title">I4C Intelligence — CCCP Module</div>
+      <div class="section-desc">Real-time integration with India's national cybercrime platform, enabling immediate freeze of mule accounts at every transaction layer.</div>
+    </div>
+  </div>
+
+  <div class="i4c-banner reveal">
+    <div class="i4c-big">1,37,607</div>
+    <div>
+      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:10px;">I4C Complaints Processed · January 2026</div>
+      <div class="i4c-desc">PNB, Canara and IDBI have deployed Clari5 CCCP products for real-time integration of I4C complaints. When a victim reports fraud on NCCRP, I4C traces funds across accounts and issues real-time freeze requests. Layer 1 = first receiving account; Layer 2 = next transfer point. Early intervention significantly improves recovery probability.</div>
+    </div>
+  </div>
+
+  <div class="cards-grid cards-3 reveal">
+    <div class="card">
+      <div class="card-accent" style="background:var(--purple)"></div>
+      <div class="card-label">IDBI Bank</div>
+      <div class="card-val" style="color:var(--purple)">52,343</div>
+      <div class="card-desc">I4C complaints processed via CCCP module in January 2026</div>
+    </div>
+    <div class="card">
+      <div class="card-accent" style="background:var(--cyan)"></div>
+      <div class="card-label">PNB</div>
+      <div class="card-val" style="color:var(--cyan)">49,794</div>
+      <div class="card-desc">I4C complaints processed via CCCP module in January 2026</div>
+    </div>
+    <div class="card">
+      <div class="card-accent" style="background:var(--green)"></div>
+      <div class="card-label">Canara Bank</div>
+      <div class="card-val" style="color:var(--green)">35,470</div>
+      <div class="card-desc">I4C complaints processed via CCCP module in January 2026</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- CONCLUSION -->
+<section id="conclusion">
+  <div class="section-header reveal">
+    <span class="section-num">07</span>
+    <div>
+      <div class="section-title">Conclusion & Key Achievements</div>
+      <div class="section-desc">Edition 4 demonstrates continued strength. January 2026 data reflects a mature and expanding prevention framework with measurable outcomes.</div>
+    </div>
+  </div>
+
+  <div class="conclusion-grid reveal">
+    <div class="conclusion-card">
+      <div class="conclusion-icon">🛡️</div>
+      <div class="conclusion-text"><strong>36.3% Prevention Ratio</strong> — 828 active prevention scenarios protecting over 1 billion customers across the ecosystem.</div>
+    </div>
+    <div class="conclusion-card">
+      <div class="conclusion-icon">💰</div>
+      <div class="conclusion-text"><strong>₹15.8 Crore in Confirmed Savings</strong> — Tangible financial impact from prevention by Mashreq UAE (₹10.4Cr) and Canara (₹5.4Cr).</div>
+    </div>
+    <div class="conclusion-card">
+      <div class="conclusion-icon">🏆</div>
+      <div class="conclusion-text"><strong>5 Leader Banks at &gt;50% Prevention</strong> — KOTAK (81.8%), CIMB EFM (78%), FBN (57%), PNB (55.2%), IOB (50.8%) setting ecosystem benchmarks.</div>
+    </div>
+    <div class="conclusion-card">
+      <div class="conclusion-icon">🌏</div>
+      <div class="conclusion-text"><strong>CIMB EFM — Southeast Asia Star</strong> — 77.8% prevention ratio with 34 frauds detected. A model for regional excellence.</div>
+    </div>
+    <div class="conclusion-card">
+      <div class="conclusion-icon">📈</div>
+      <div class="conclusion-text"><strong>Fraud Detection on Upswing</strong> — 1,557 frauds detected in January vs 1,155 in December, reflecting deeper detection coverage.</div>
+    </div>
+    <div class="conclusion-card">
+      <div class="conclusion-icon">🔮</div>
+      <div class="conclusion-text"><strong>Middle East — Strategic Opportunity</strong> — 9.8% prevention ratio with 4 banks presents a clear runway for prevention maturity improvement.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Clari5 Intelligence</div>
+  <div class="footer-meta">State of Fraud Report · February 2026 · Edition 4 · Based on January 2026 data</div>
+  <div class="footer-meta">Confidential — For Internal Executive Use</div>
+</footer>
+
+<script>
+// ---- COUNTER ANIMATION ----
+function animateCounter(el, target, suffix='', prefix='') {
+  let start = 0;
+  const duration = 1800;
+  const step = timestamp => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 4);
+    const cur = Math.floor(ease * target);
+    el.textContent = prefix + cur.toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = prefix + target.toLocaleString() + suffix;
+  };
+  requestAnimationFrame(step);
+}
+
+let countersStarted = false;
+function startCounters() {
+  if (countersStarted) return;
+  countersStarted = true;
+  animateCounter(document.getElementById('cnt-banks'), 25);
+  animateCounter(document.getElementById('cnt-scenarios'), 2290);
+  animateCounter(document.getElementById('cnt-ratio'), 36, '%');
+  animateCounter(document.getElementById('cnt-alerts'), 3544494);
+  setTimeout(() => { document.getElementById('cnt-saved').textContent = '₹15.8Cr'; }, 1800);
+}
+
+// ---- NAV SCROLL ----
+function scrollTo(id) {
+  document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+}
+window.addEventListener('scroll', () => {
+  const links = document.querySelectorAll('.nav-link');
+  const sections = ['#summary','#maturity','#channels','#detection','#scenarios','#i4c'];
+  let active = 0;
+  sections.forEach((sec, i) => {
+    const el = document.querySelector(sec);
+    if (el && window.scrollY >= el.offsetTop - 120) active = i;
+  });
+  links.forEach((l, i) => l.classList.toggle('active', i === active));
+  if (window.scrollY > 200) startCounters();
+});
+
+// ---- REVEAL ON SCROLL ----
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ---- TABS ----
+function switchTab(id, groupId) {
+  const group = document.getElementById(groupId);
+  group.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const btns = document.querySelectorAll(`[onclick*="${groupId}"]`).length
+    ? document.querySelectorAll('.tab-btn')
+    : [];
+  // update active tab button
+  const allBtns = document.querySelectorAll('.tab-btn');
+  allBtns.forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(id)) b.classList.add('active');
+    else b.classList.remove('active');
+  });
+  if (id === 'region-tab') renderRegionChart();
+  if (id === 'trend-tab') renderTrendChart();
+}
+
+// ---- CHARTS ----
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.color = '#7aa8cc';
+
+// Prevention Ratio Chart
+new Chart(document.getElementById('prevChart'), {
+  type: 'bar',
+  data: {
+    labels: ['KOTAK', 'CIMB EFM', 'FBN', 'PNB', 'IOB', 'CANARA', 'YES', 'EQUITAS'],
+    datasets: [{
+      label: 'Prevention Ratio %',
+      data: [81.8, 78, 57, 55.2, 50.8, 31.4, 25.3, 16.5],
+      backgroundColor: ctx => {
+        const v = ctx.raw;
+        if (v >= 50) return 'rgba(255,209,102,0.8)';
+        if (v >= 25) return 'rgba(0,200,255,0.7)';
+        return 'rgba(255,159,28,0.6)';
+      },
+      borderRadius: 6,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: { legend: { display: false }, tooltip: {
+      callbacks: { label: ctx => ` ${ctx.raw}% prevention ratio` }
+    }},
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.04)' }, max: 100, ticks: { callback: v => v+'%' } },
+      y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+// Channel Doughnut
+new Chart(document.getElementById('channelDoughnut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['CBS / Branch', 'Internet / MB', 'Cards', 'Cross Channel', 'UPI'],
+    datasets: [{
+      data: [995, 491, 339, 207, 161],
+      backgroundColor: ['#00c8ff','#06d6a0','#ff9f1c','#9b72cf','#ffd166'],
+      borderColor: '#0b1c2e',
+      borderWidth: 3,
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    cutout: '68%',
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 16, font: { size: 12 }, usePointStyle: true } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw} scenarios (${Math.round(ctx.raw/2193*100)}%)` } }
+    }
+  }
+});
+
+// Scenario Bar
+new Chart(document.getElementById('scenarioBar'), {
+  type: 'bar',
+  data: {
+    labels: ['KOTAK', 'PNB', 'IOB', 'CANARA', 'EQUITAS'],
+    datasets: [
+      { label: 'Monitoring', data: [68, 129, 125, 166, 177], backgroundColor: 'rgba(0,200,255,0.7)', borderRadius: 4 },
+      { label: 'Prevention', data: [305, 159, 129, 76, 35], backgroundColor: 'rgba(6,214,160,0.7)', borderRadius: 4 }
+    ]
+  },
+  options: {
+    plugins: { legend: { labels: { font: { size: 12 }, usePointStyle: true } } },
+    scales: {
+      x: { stacked: false, grid: { color: 'rgba(255,255,255,0.04)' } },
+      y: { grid: { color: 'rgba(255,255,255,0.04)' } }
+    }
+  }
+});
+
+// Region chart (lazy)
+let regionRendered = false;
+function renderRegionChart() {
+  if (regionRendered) return;
+  regionRendered = true;
+  new Chart(document.getElementById('regionChart'), {
+    type: 'bar',
+    data: {
+      labels: ['INDIA', 'AFRICA', 'MIDDLE EAST', 'SE ASIA'],
+      datasets: [
+        { label: 'Total Alerts', data: [3339659, 114892, 67773, 22170], backgroundColor: 'rgba(0,200,255,0.6)', borderRadius: 6 },
+        { label: 'Frauds Detected', data: [1314, 0, 132, 34], backgroundColor: 'rgba(255,77,109,0.7)', borderRadius: 6, yAxisID: 'y2' }
+      ]
+    },
+    options: {
+      plugins: { legend: { labels: { font: { size: 12 }, usePointStyle: true } } },
+      scales: {
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => v >= 1000000 ? (v/1000000).toFixed(1)+'M' : v >= 1000 ? (v/1000)+'K' : v } },
+        y2: { position: 'right', grid: { display: false }, ticks: { color: '#ff4d6d' } }
+      }
+    }
+  });
+}
+
+// Trend chart (lazy)
+let trendRendered = false;
+function renderTrendChart() {
+  if (trendRendered) return;
+  trendRendered = true;
+  new Chart(document.getElementById('trendChart'), {
+    type: 'line',
+    data: {
+      labels: ['November 2025', 'December 2025', 'January 2026'],
+      datasets: [
+        {
+          label: 'Mashreq UAE (₹ Crore)',
+          data: [3.4, 9.7, 10.4],
+          borderColor: '#00c8ff',
+          backgroundColor: 'rgba(0,200,255,0.1)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 6,
+          pointBackgroundColor: '#00c8ff'
+        },
+        {
+          label: 'Canara (₹ Crore)',
+          data: [3.7, 5.2, 5.4],
+          borderColor: '#ffd166',
+          backgroundColor: 'rgba(255,209,102,0.08)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 6,
+          pointBackgroundColor: '#ffd166'
+        }
+      ]
+    },
+    options: {
+      plugins: { legend: { labels: { font: { size: 12 }, usePointStyle: true } } },
+      scales: {
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => '₹' + v + 'Cr' } },
+        x: { grid: { color: 'rgba(255,255,255,0.04)' } }
+      }
+    }
+  });
+}
+
+// Start hero counters on load after a moment
+setTimeout(() => {
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
+  });
+  startCounters();
+}, 400);
+</script>
+</body>
+</html>
